@@ -5,7 +5,7 @@ import primitives.Vector;
 
 /**
  * An interface called geometry for any geometric body
- * and then we will set up classes for the various bodies
+ * and then we will set up classes for the various bodies.
  */
 public interface Geometry {
     /**
