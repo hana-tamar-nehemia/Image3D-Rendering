@@ -5,8 +5,8 @@ import primitives.Ray;
 import primitives.Vector;
 
 public class Tube implements Geometry{
-    protected Ray axisRay;
-    protected  double radius;
+    final Ray _axisRay;
+    final double _radius;
 
     /**
      * constractor who get Ray and number of radius
@@ -14,23 +14,23 @@ public class Tube implements Geometry{
      * @param radius
      */
     public Tube(Ray axisRay, double radius) {
-        this.axisRay = axisRay;
-        this.radius = radius;
+        _axisRay = axisRay;
+        _radius = radius;
     }
 
     public Ray getAxisRay() {
-        return axisRay;
+        return _axisRay;
     }
 
-    public double getRadius() {
-        return radius;
+    public double get_radius() {
+        return _radius;
     }
 
     @Override
     public String toString() {
         return "Tube{" +
-                "axisRay=" + axisRay +
-                ", radius=" + radius +
+                "axisRay=" + _axisRay +
+                ", radius=" + _radius +
                 '}';
     }
 

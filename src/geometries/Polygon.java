@@ -18,11 +18,11 @@ public class Polygon implements Geometry {
     /**
      * Associated plane in which the polygon lays
      */
-    protected Plane plane;
+    final Plane _plane;
 
     public Polygon(List<Point3D> vertices, Plane plane) {
         this.vertices = vertices;
-        this.plane = plane;
+        _plane = plane;
     }
 
     public List<Point3D> getVertices() {
@@ -30,14 +30,14 @@ public class Polygon implements Geometry {
     }
 
     public Plane getPlane() {
-        return plane;
+        return _plane;
     }
 
     @Override
     public String toString() {
         return "Polygon{" +
                 "vertices=" + vertices +
-                ", plane=" + plane +
+                ", plane=" + _plane +
                 '}';
     }
 
@@ -69,11 +69,11 @@ public class Polygon implements Geometry {
         // Generate the plane according to the first three vertices and associate the
         // polygon with this plane.
         // The plane holds the invariant normal (orthogonal unit) vector to the polygon
-        plane = new Plane(vertices[0], vertices[1], vertices[2]);
+        _plane = new Plane(vertices[0], vertices[1], vertices[2]);
         if (vertices.length == 3)
             return; // no need for more tests for a Triangle
 
-        Vector n = plane.getNormal();
+        Vector n = _plane.getNormal();
 
         // Subtracting any subsequent points will throw an IllegalArgumentException
         // because of Zero Vector if they are in the same point
@@ -103,7 +103,7 @@ public class Polygon implements Geometry {
     }
     @Override
     public Vector getNormal(Point3D point) {
-        return plane.getNormal();
+        return _plane.getNormal();
     }
 }
 

@@ -18,7 +18,6 @@ public class Point3D {
         _y = y;
         _z = z;
     }
-
     /**
      * constractor who get 3 numbers to put in the point 3D
      * @param x
@@ -62,12 +61,12 @@ public class Point3D {
      * @return
      */
     public double distanceSquared(Point3D other) {
-        final double x1 = _x.coord;
-        final double y1 = _y.coord;
-        final double z1 = _z.coord;
-        final double x2 = other._x.coord;
-        final double y2 = other._y.coord;
-        final double z2 = other._z.coord;
+        final double x1 = _x._coord;
+        final double y1 = _y._coord;
+        final double z1 = _z._coord;
+        final double x2 = other._x._coord;
+        final double y2 = other._y._coord;
+        final double z2 = other._z._coord;
 
         return ((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)) + ((z2 - z1) * (z2 - z1));
     }
@@ -93,9 +92,9 @@ public class Point3D {
             throw new IllegalArgumentException("cannot create Vector to Point(0,0,0)");
         }
         return  new Vector(new Point3D(
-                _x.coord - p._x.coord,
-                _y.coord - p._y.coord,
-                _z.coord - p._z.coord
+                _x._coord - p._x._coord,
+                _y._coord - p._y._coord,
+                _z._coord - p._z._coord
         ));
     }
 
@@ -106,9 +105,9 @@ public class Point3D {
      */
     public Point3D add(Vector v){//חיבור וקטורים
         return (new Point3D(
-                v._head._x.coord+ this._x.coord,
-                v._head._y.coord+ this._y.coord,
-                v._head._z.coord+ this._z.coord));
+                v._head._x._coord+ this._x._coord,
+                v._head._y._coord+ this._y._coord,
+                v._head._z._coord+ this._z._coord));
     }
 
 }

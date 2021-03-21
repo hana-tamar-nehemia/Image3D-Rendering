@@ -44,7 +44,8 @@ public class Plane implements Geometry {
                 '}';
     }
 
-    public Vector getNormal() {
+    public Vector getNormal()
+    {
         return _normal;
     }
 
@@ -55,7 +56,8 @@ public class Plane implements Geometry {
      * @return
      */
     @Override
-    public Vector getNormal(Point3D point) {
-        return null;
+    public Vector getNormal(Point3D point)
+    {
+        return _normal;
     }
 }
