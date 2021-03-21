@@ -42,10 +42,11 @@ class VectorTest {
 
         //assertThrows("crossProduct() for parallel vectors does not throw an exception",
         //IllegalArgumentException.class, () -> v1.crossProduct(v3));
-        try {
+         try {
             v1.crossProduct(v2);
             fail("crossProduct() for parallel vectors does not throw an exception");
         } catch (Exception e) {}
+
 
 
     }
