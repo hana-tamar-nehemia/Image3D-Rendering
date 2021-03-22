@@ -46,7 +46,6 @@ public class Cylinder extends Tube {
                 ", radius=" + _radius +
                 '}';
     }
-
     /**
      *
      * @param point - point 3D
@@ -56,6 +55,6 @@ public class Cylinder extends Tube {
      */
     @Override
     public Vector getNormal(Point3D point) {
-        return null;
+        return null ;
     }
 }

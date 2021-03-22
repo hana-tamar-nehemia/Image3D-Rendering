@@ -1,5 +1,6 @@
 package primitives;
 
+import javax.naming.OperationNotSupportedException;
 import java.util.Objects;
 
 import static primitives.Point3D.ZERO;
@@ -55,15 +56,17 @@ public class Vector {
         double u1 = _head._x._coord;
         double u2 = _head._y._coord;
         double u3 = _head._z._coord;
+
         double v1 = v._head._x._coord;
         double v2 = v._head._y._coord;
         double v3 = v._head._z._coord;
-
-        return new Vector(new Point3D(
-                u2 * v3 - u3 * v2,
-                u3 * v1 - u1 * v3,
-                u1 * v2 - u2 * v1
-        ));
+        Point3D x=new Point3D(
+        u2 * v3 - u3 * v2,
+        u3 * v1 - u1 * v3,
+        u1 * v2 - u2 * v1);
+        if(x.equals(ZERO))
+            throw new IllegalArgumentException("cross product result is zero");
+       return new Vector((x));
     }
 
     /**

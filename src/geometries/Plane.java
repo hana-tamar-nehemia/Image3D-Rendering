@@ -7,6 +7,7 @@ public class Plane implements Geometry {
     final Point3D _q0;
     final Vector _normal;
 
+
     /**
      * constractor who get 3 point 3D and Should calculate normal
      * @param p1
@@ -19,6 +20,8 @@ public class Plane implements Geometry {
         Vector V = p3.subtract(p1);
         Vector N = U.crossProduct(V);
         N.normalize();
+        if (N.length()!=1)
+            throw new IllegalArgumentException("the vector is not normelized");
         _normal = N;
     }
 
@@ -30,6 +33,7 @@ public class Plane implements Geometry {
     public Plane(Point3D q0, Vector normal) {
         _q0 = q0;
         _normal = normal.normalized();
+
     }
 
     public Point3D getQ0() {

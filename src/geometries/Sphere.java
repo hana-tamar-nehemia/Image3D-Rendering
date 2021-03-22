@@ -29,7 +29,7 @@ public class Sphere implements Geometry{
     public String toString() {
         return "Sphere{" +
                 "center=" + _center +
-                ", radius=" + _radius +
+                ",radius=" + _radius +
                 '}';
     }
 
@@ -41,6 +41,10 @@ public class Sphere implements Geometry{
      */
     @Override
     public Vector getNormal(Point3D point) {
-        return null;
+        Vector n=point.subtract(_center);
+        n.normalize();
+        if (n.length()!=1)
+            throw new IllegalArgumentException("the vector is not normalize");
+        return n;
     }
 }

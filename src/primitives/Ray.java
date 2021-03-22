@@ -13,4 +13,12 @@ public class Ray {
         _p0 = p0;
         _dir = dir.normalize();
     }
+
+    public Point3D getP0() {
+        return _p0;
+    }
+
+    public Vector getDir() {
+        return _dir;
+    }
 }
