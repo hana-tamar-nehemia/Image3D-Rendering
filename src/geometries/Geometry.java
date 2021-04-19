@@ -7,7 +7,7 @@ import primitives.Vector;
  * An interface called geometry for any geometric body
  * and then we will set up classes for the various bodies.
  */
-public interface Geometry {
+public interface Geometry extends Intersectable {
     /**
      *   *Receives one point parameter [across the geometric body] and
      *      *returns the normalized vector (vertical) to the body at that point.

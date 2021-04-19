@@ -1,7 +1,14 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
+import primitives.Util;
+
+
+import java.util.List;
+
+import static primitives.Util.alignZero;
 
 public class Sphere implements Geometry{
     final Point3D _center;
@@ -47,4 +54,26 @@ public class Sphere implements Geometry{
             throw new IllegalArgumentException("the vector is not normalize");
         return n;
     }
+    public List<Point3D> findIntsersections(Ray ray){
+        Point3D p0=ray.getP0();
+        Vector v=ray.getDir();
+        if(p0.equals(_center)){
+            throw new IllegalArgumentException(" p0 canot equals to center point");
+        }
+        Vector u=_center.subtract(p0);
+        double tm=u.dotProduct(v);
+        double d=alignZero(Math.sqrt(u.lengthSquared()-tm*tm));
+        if(d >=_radius) {
+            return null;
+        }
+        double th=Math.sqrt(_radius*_radius-d*d);
+        double t1=tm-th;
+        double t2=tm+th;
+        if( t1>0&&t2>0){
+
+
+        }
+
+    }
+
 }

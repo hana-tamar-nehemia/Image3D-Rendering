@@ -1,7 +1,10 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 public class Plane implements Geometry {
     final Point3D _q0;
@@ -63,5 +66,8 @@ public class Plane implements Geometry {
     public Vector getNormal(Point3D point)
     {
         return _normal;
+    }
+    public List<Point3D> findIntsersections(Ray ray){
+        return null;
     }
 }

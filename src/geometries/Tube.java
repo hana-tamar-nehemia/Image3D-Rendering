@@ -4,6 +4,8 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 public class Tube implements Geometry{
     final Ray _axisRay;
     final double _radius;
@@ -51,6 +53,9 @@ public class Tube implements Geometry{
         if (N.length()!=1)
             throw new IllegalArgumentException("the vector is not normalize");
         return N;
+    }
+    public List<Point3D> findIntsersections(Ray ray){
+        return null;
     }
 
 }
