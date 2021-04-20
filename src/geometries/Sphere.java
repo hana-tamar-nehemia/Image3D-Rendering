@@ -55,37 +55,47 @@ public class Sphere implements Geometry{
         return n;
     }
     public List<Point3D> findIntsersections(Ray ray) {
-        Point3D p0 = ray.getP0();
+        Point3D P0 = ray.getP0();
         Vector v = ray.getDir();
-        if (p0.equals(_center)) {
-            throw new IllegalArgumentException(" p0 canot equals to center point");
+
+        if (P0.equals(_center)) {
+            return List.of(_center.add(v.scale(_radius)));
         }
-        Vector u = _center.subtract(p0);
-        double tm = u.dotProduct(v);
-        double d = alignZero(Math.sqrt(u.lengthSquared() - tm * tm));
+
+        Vector U = _center.subtract(P0);
+
+        double tm = alignZero(v.dotProduct(U));
+        double d = alignZero(Math.sqrt(U.lengthSquared() - tm * tm));
+
+        // no intersections : the ray direction is above the sphere
         if (d >= _radius) {
             return null;
         }
-        double th = Math.sqrt(_radius * _radius - d * d);
-        double t1 = tm - th;
-        double t2 = tm + th;
+
+        double th = alignZero(Math.sqrt(_radius * _radius - d * d));
+        double t1 = alignZero(tm - th);
+        double t2 = alignZero(tm + th);
+
         if (t1 > 0 && t2 > 0) {
+//            Point3D P1 = P0.add(v.scale(t1));
+//            Point3D P2 = P0.add(v.scale(t2));
             Point3D P1 =ray.getPoint(t1);
             Point3D P2 =ray.getPoint(t2);
             return List.of(P1, P2);
         }
         if (t1 > 0) {
+//            Point3D P1 = P0.add(v.scale(t1));
             Point3D P1 =ray.getPoint(t1);
             return List.of(P1);
         }
         if (t2 > 0) {
+//            Point3D P2 = P0.add(v.scale(t2));
             Point3D P2 =ray.getPoint(t2);
             return List.of(P2);
         }
         return null;
-
-        }
-
-
     }
+}
+
+
 
