@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class SphereTest {
 
     @Test
-    public void GetNormal() {
+    public void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: There is a simple single test here
-        Sphere sph = new Sphere( new Point3D(-2, 0, 0),2.0);
+        Sphere sph = new Sphere( new Point3D(0, 0, 1),1.0);
         assertEquals(new Vector(0, 0, 1), sph.getNormal(new Point3D(0, 0, 2)), "Bad normal to sphere");
     }
 
