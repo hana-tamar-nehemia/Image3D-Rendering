@@ -5,9 +5,7 @@ import primitives.Ray;
 import primitives.Vector;
 import primitives.Util;
 
-
 import java.util.List;
-
 import static primitives.Util.alignZero;
 
 public class Sphere implements Geometry{
@@ -38,6 +36,16 @@ public class Sphere implements Geometry{
                 "center=" + _center +
                 ",radius=" + _radius +
                 '}';
+    }
+
+    /**
+     * Receives one point parameter [across the geometric body] and
+     *      *returns the normalized vector (vertical) to the body at that point
+     * @return
+     */
+
+    public Vector getNormal() {
+        return getNormal();
     }
 
     /**

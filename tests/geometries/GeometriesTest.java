@@ -8,12 +8,15 @@ import primitives.Vector;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+/**
+ * Testing geometries
+ *
+ *
+ *
+ */
 
 class GeometriesTest {
 
-    @Test
-    void add() {
-    }
 
     @Test
     void testfindIntsersections() {
@@ -27,19 +30,19 @@ class GeometriesTest {
         geo._intersectables.add(new Sphere(new Point3D(0, 0, 2), 1));
 
         //TC12: No shape cut
-        assertEquals( null, geo.findIntsersections(new Ray(new Point3D(-4,0 , 0), new Vector(-2, -4, 0))),"Ray not included in the plane");
+        assertEquals( null, geo.findIntsersections(new Ray(new Point3D(-4,0 , 0), new Vector(-2, -4, 0))),"Ray not cut any shape");
 
         //TC13: One shape cut
         List<Point3D> l = geo.findIntsersections(new Ray(new Point3D(-4, 0, 0), new Vector(-6, 6, 0)));
-        assertEquals( 1, l.size(),"Ray not included in the plane");
+        assertEquals( 1, l.size(),"Ray cut One shape ");
 
 
         //TC14: All shapes cut
         l = geo.findIntsersections(new Ray(new Point3D(0.05, -2.5, -1), new Vector(-0.05, 4.5, 5)));
-        assertEquals( 4, l.size(),"Ray not included in the plane");
+        assertEquals( 4, l.size(),"Ray cut all shape");
 
         //TC15: more then 1 shapes cut but no all of them
         l = geo.findIntsersections(new Ray(new Point3D(0, 0, 4), new Vector(0, -2, -5)));
-        assertEquals( 3, l.size(),"Ray not included in the plane");
+        assertEquals( 3, l.size(),"Ray cut more then 1 shapes  but no all of them");
     }
 }
