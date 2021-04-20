@@ -3,23 +3,39 @@ package geometries;
 import primitives.Point3D;
 import primitives.Ray;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Geometries implements Intersectable{
+public class Geometries implements Intersectable {
+    public List<Intersectable> _intersectables = new LinkedList<>();
+
+    public Geometries(Intersectable... geometries) {
+        add(geometries);
+    }
+
+    public void add(Intersectable... geometries) {
+        Collections.addAll(_intersectables, geometries);
+    }
+
     @Override
-    private  List<Point3D> _intersectables;
-
-    public Geometries(Intersectable... intersectables) {
-
-        add(intersectables);
-    }
-
-    private void add(Intersectable... intersectables) {
-
-    }
-
     public List<Point3D> findIntsersections(Ray ray) {
-        return null;
+        List<Point3D> result = null;
+        for (Intersectable item : _intersectables) {
+            //get intersections points of a particular item from _intersectables
+            List<Point3D> itempoints = item.findIntsersections(ray);
+            if(itempoints!= null){
+                //first time initialize result to new LinkedList
+                if(result== null){
+                    result= new LinkedList<>();
+                }
+                //add all item points to the resulting list
+                result.addAll(itempoints);
+            }
+        }
+
+        return result;
     }
+
 }
+

@@ -9,6 +9,7 @@ class Point3DTest {
     Point3D p1 = new Point3D(1, 2, 3);
     @Test
     void getX() {
+
     }
 
     @Test

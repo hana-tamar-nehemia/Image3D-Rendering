@@ -30,16 +30,15 @@ public class Point3D {
         _z = new Coordinate(z);
     }
 
-    public Coordinate getX() {
-        return _x;
+    //getters
+    public double getX() {
+        return _x._coord;
     }
-
-    public Coordinate getY() {
-        return _y;
+    public double getY() {
+        return _y._coord;
     }
-
-    public Coordinate getZ() {
-        return _z;
+    public double getZ() {
+        return _z._coord;
     }
 
     @Override

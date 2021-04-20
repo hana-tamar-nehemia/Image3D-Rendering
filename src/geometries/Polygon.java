@@ -14,19 +14,19 @@ public class Polygon implements Geometry {
     /**
      * List of polygon's vertices
      */
-    protected List<Point3D> vertices;
+    protected List<Point3D> _vertices;
     /**
      * Associated plane in which the polygon lays
      */
     final Plane _plane;
 
     public Polygon(List<Point3D> vertices, Plane plane) {
-        this.vertices = vertices;
+        this._vertices = vertices;
         _plane = plane;
     }
 
     public List<Point3D> getVertices() {
-        return vertices;
+        return _vertices;
     }
 
     public Plane getPlane() {
@@ -36,7 +36,7 @@ public class Polygon implements Geometry {
     @Override
     public String toString() {
         return "Polygon{" +
-                "vertices=" + vertices +
+                "vertices=" + _vertices +
                 ", plane=" + _plane +
                 '}';
     }
@@ -65,7 +65,7 @@ public class Polygon implements Geometry {
     public Polygon(Point3D... vertices) {
         if (vertices.length < 3)
             throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
-        this.vertices = List.of(vertices);
+        this._vertices = List.of(vertices);
         // Generate the plane according to the first three vertices and associate the
         // polygon with this plane.
         // The plane holds the invariant normal (orthogonal unit) vector to the polygon
@@ -105,8 +105,47 @@ public class Polygon implements Geometry {
     public Vector getNormal(Point3D point) {
         return _plane.getNormal();
     }
-    public List<Point3D> findIntsersections(Ray ray){
-        return null;
+    @Override
+    public List<Point3D> findIntsersections(Ray ray) {
+        List<Point3D> result = _plane.findIntsersections(ray);
+
+        if (result == null) {
+            return result;
+        }
+
+        Point3D P0 = ray.getP0();
+        Vector v = ray.getDir();
+
+        Point3D P1 = _vertices.get(1);
+        Point3D P2 = _vertices.get(0);
+
+        Vector v1 = P1.subtract(P0);
+        Vector v2 = P2.subtract(P0);
+
+        double sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+
+        if (isZero(sign)) {
+            return null;
+        }
+
+        boolean positive = sign > 0;
+
+        //iterate through all vertices of the polygon
+        for (int i = _vertices.size() - 1; i > 0; --i) {
+            v1 = v2;
+            v2 = _vertices.get(i).subtract(P0);
+
+            sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+            if (isZero(sign)) {
+                return null;
+            }
+
+            if (positive != (sign > 0)) {
+                return null;
+            }
+        }
+
+        return result;
     }
 }
 
