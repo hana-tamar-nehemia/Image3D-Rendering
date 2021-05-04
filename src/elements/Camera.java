@@ -102,6 +102,16 @@ public class Camera {
 
     }
 
+    private Camera(BuilderCamera builder) {
+        _p0 = builder._p0;
+        _vTo = builder._vTo;
+        _vUp = builder._vUp;
+        _vRight = builder._vRight;
+        _height = builder._height;
+        _width = builder._width;
+        _distance = builder._distance;
+    }
+
     /**
      * @param nX Height -length units pixels
      * @param nY Width length units pixels
@@ -133,5 +143,52 @@ public class Camera {
 
     }
 
-    //public Camera setVpSize(int i, int i1) {}
+    /**
+     * Builder Class for Camera
+     */
+    public static class BuilderCamera {
+        final private Point3D _p0;
+        final private Vector _vTo;
+        final private Vector _vUp;
+        final private Vector _vRight;
+
+        private double _distance = 10;
+        private double _width = 1;
+        private double _height = 1;
+
+        public BuilderCamera setDistance(double distance) {
+            _distance = distance;
+            return this;
+        }
+
+
+        public BuilderCamera setViewPlaneWidth(double width) {
+            _width = width;
+            return this;
+        }
+
+        public BuilderCamera setViewPlaneHeight(double height) {
+            _height = height;
+            return this;
+        }
+
+        public Camera build() {
+            Camera camera = new Camera(this);
+            return camera;
+        }
+
+        public BuilderCamera(Point3D p0, Vector vTo, Vector vUp) {
+            _p0 = p0;
+
+            if (!isZero(vTo.dotProduct(vUp))) {
+                throw new IllegalArgumentException("vto and vup are not orthogonal");
+            }
+
+            _vTo = vTo.normalized();
+            _vUp = vUp.normalized();
+
+            _vRight = _vTo.crossProduct(_vUp);
+
+        }
+    }
 }
