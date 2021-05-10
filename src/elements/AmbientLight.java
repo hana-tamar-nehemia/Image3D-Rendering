@@ -16,6 +16,10 @@ public class AmbientLight {
      */
     final private Color _intensity;
 
+    public AmbientLight() {
+        _intensity=Color.BLACK;
+    }
+
     /**
      * Constructor
      * @param Ia intensity color
