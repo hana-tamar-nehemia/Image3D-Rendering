@@ -84,7 +84,11 @@ public class Cylinder extends Tube {
         p0 = p0.add(v.scale(t));
         return point.subtract(p0).normalize();
     }
-//    public List<Point3D> findIntsersections(Ray ray){
+
+
+
+
+//    public List<Point3D> findIntersections(Ray ray) {
 //            Vector vAxis = _axisRay.getDir();
 //            Vector v = ray.getDir();
 //            Point3D p0 = ray.getP0();
@@ -93,7 +97,7 @@ public class Cylinder extends Tube {
 //            Point3D p2;
 //
 //            // intersections of the ray with infinite cylinder {without the bases)
-//            List<GeoPoint> intersections = super.findGeoIntersections(ray);
+//            List<Point3D> intersections = super.findIntsersections(ray);
 //            double vAxisV = alignZero(vAxis.dotProduct(v)); // cos(angle between ray directions)
 //
 //            if (intersections == null) { // no intersections with the infinite cylinder
@@ -168,4 +172,6 @@ public class Cylinder extends Tube {
 //                return List.of(p2);
 //            return null;
 //        }
-    }
+
+
+}

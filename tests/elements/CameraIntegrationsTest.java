@@ -27,14 +27,14 @@ public class CameraIntegrationsTest {
     void assertTestCamera(Camera cam, Intersectable geo, int numOfIntersections) {
         int count = 0;
 
-        List<Point3D> all_intersections = null;
+        List<Intersectable.GeoPoint> all_intersections = null;
 
         cam.setViewPlaneSize(3, 3);
         cam.setDistance(1);
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
-                var Actual = geo.findIntersections(cam.constructRayThroughPixel(3, 3, j, i));
+                var Actual = geo.findGeoIntersections(cam.constructRayThroughPixel(3, 3, j, i));
                 if (Actual != null) {
                     if (all_intersections == null) {
                         all_intersections = new LinkedList<>();

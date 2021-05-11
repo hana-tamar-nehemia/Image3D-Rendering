@@ -63,17 +63,13 @@ public class Sphere extends Geometry{
         return n;
     }
 
-    /**
-     Receives a ray and returns a list of the
-     points that cut with the ray and also returns the name of the shape, sphere
-     */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
         Point3D P0 = ray.getP0();
         Vector v = ray.getDir();
 
         if (P0.equals(_center)) {
-            return List.of(new GeoPoint(this,_center.add(v.scale(_radius))));
+            return List.of( new GeoPoint(this, _center.add(v.scale(_radius))));
         }
 
         Vector U = _center.subtract(P0);
@@ -95,7 +91,7 @@ public class Sphere extends Geometry{
 //            Point3D P2 = P0.add(v.scale(t2));
             Point3D P1 =ray.getPoint(t1);
             Point3D P2 =ray.getPoint(t2);
-            return List.of(new GeoPoint(this,P1),new GeoPoint(this,P2) );
+            return List.of(new GeoPoint(this,P1),new GeoPoint(this, P2));
         }
         if (t1 > 0) {
 //            Point3D P1 = P0.add(v.scale(t1));

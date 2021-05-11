@@ -1,6 +1,5 @@
 package geometries;
 
-import primitives.Point3D;
 import primitives.Ray;
 
 import java.util.Collections;
@@ -26,15 +25,15 @@ public class Geometries implements Intersectable {
     public List<GeoPoint> findGeoIntersections(Ray ray) {
         List<GeoPoint> result = null;
         for (Intersectable item : _intersectables) {
-            //get intersections points of a particular item from _intersectables
-            List<GeoPoint> itempoints = item.findGeoIntersections(ray);
-            if(itempoints!= null){
+            //get intersections points of a particular item from _intersected
+            List<GeoPoint> points = item.findGeoIntersections(ray);
+            if(points != null){
                 //first time initialize result to new LinkedList
                 if(result== null){
                     result= new LinkedList<>();
                 }
                 //add all item points to the resulting list
-                result.addAll(itempoints);
+                result.addAll(points);
             }
         }
 

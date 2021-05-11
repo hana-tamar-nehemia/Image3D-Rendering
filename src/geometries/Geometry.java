@@ -17,6 +17,7 @@ public abstract class Geometry implements Intersectable {
      * @return
      */
     protected Color _emission = Color.BLACK;
+
     public Color get_emission() {
         return _emission;
     }

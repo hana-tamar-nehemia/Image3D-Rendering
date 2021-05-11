@@ -1,11 +1,11 @@
 package renderer;
 
 import geometries.Intersectable;
+import static geometries.Intersectable.GeoPoint;
 import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import scene.Scene;
-import geometries.Intersectable.GeoPoint;
 
 import java.util.List;
 
@@ -43,13 +43,11 @@ public class RayTracerBasic extends RayTracerBase {
     /**
      * Gets a point parameter and returns color.
      * The method will return the ambient lighting color of the scene
-     * Adds the color of the object to the point color
-     * @param geo
+     * @param point
      * @return
      */
-    private Color calcColor(GeoPoint geo)
-    {
-        Color result=geo.geometry.get_emission();
+    private Color calcColor(GeoPoint point) {
+        Color result = point.geometry.get_emission();
         return result.add(_scene.ambientlight.getIntensity());
     }
 }

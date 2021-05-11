@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
  *    Consider his intersection points with the ray
  */
 public interface Intersectable {
+
     public static class GeoPoint {
         public Geometry geometry;
         public Point3D point;
@@ -46,5 +47,4 @@ public interface Intersectable {
                 .map(gp -> gp.point)
                 .collect(Collectors.toList());
     }
-
 }
