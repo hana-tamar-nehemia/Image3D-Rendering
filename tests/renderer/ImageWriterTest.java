@@ -11,9 +11,11 @@ class ImageWriterTest {
      * - a single-color image with a second-color grid of lines.
      * In this test, a grid of 10x16 squares with a resolution of 500 by 800 was built.
      */
+
+
     @Test
     void testWriteToImage() {
-        ImageWriter imageWriter = new ImageWriter("testpink",800,500);
+        ImageWriter imageWriter = new ImageWriter("testblue",800,500);
         for (int i = 0; i < 800; i++) {
             for (int j = 0; j < 500; j++) {
                 // 800/16 = 50 Total width divided by the number of pixels gives the width of each pixel
@@ -30,5 +32,4 @@ class ImageWriterTest {
         }
         imageWriter.writeToImage();
     }
-
 }

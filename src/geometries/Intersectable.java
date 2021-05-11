@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
  *    Consider his intersection points with the ray
  */
 public interface Intersectable {
+
     public static class GeoPoint {
         public Geometry geometry;
         public Point3D point;
@@ -35,9 +36,6 @@ public interface Intersectable {
      */
     List<GeoPoint> findGeoIntersections(Ray ray);
 
-
-
-
     /**
      If there is no shape cut with the ray will return null
      else return a with list all the cutting points that each shape has with the ray
@@ -49,5 +47,4 @@ public interface Intersectable {
                 .map(gp -> gp.point)
                 .collect(Collectors.toList());
     }
-
 }

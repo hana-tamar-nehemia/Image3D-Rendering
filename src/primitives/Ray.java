@@ -1,4 +1,7 @@
 package primitives;
+import geometries.Intersectable.GeoPoint;
+import geometries.Geometries;
+import geometries.Intersectable;
 
 import java.util.List;
 
@@ -44,6 +47,7 @@ public class Ray {
             return null;
         }
 
+
         for (Point3D p: pointsList) {
             double temp = p.distance(_p0);
             if(temp < closestDistance){
@@ -51,7 +55,24 @@ public class Ray {
                 result =p;
             }
         }
+        return  result;
+    }
 
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> GeoPointList) {
+        GeoPoint result =null;
+        double closestDistance = Double.MAX_VALUE;
+
+        if(GeoPointList== null){
+            return null;
+        }
+
+        for (GeoPoint g : GeoPointList) {
+            double temp = g.point.distance(_p0);
+            if(temp < closestDistance){
+                closestDistance =temp;
+                result = g;
+            }
+        }
         return  result;
     }
 
