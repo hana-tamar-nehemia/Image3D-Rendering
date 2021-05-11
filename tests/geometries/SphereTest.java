@@ -33,13 +33,13 @@ class SphereTest {
 
         List<Point3D> exp = List.of(gp1, gp2,gp3);
         // TC01: Ray's line is outside the sphere (0 points)
-        assertNull(sphere.findIntsersections(
+        assertNull(sphere.findGeoIntersections(
                 new Ray(
                         new Point3D(-5, 0, 0),
                         new Vector(1, 3, 1))),
                 "Ray's line out of sphere");
         // TC02: Ray starts before and crosses the sphere (2 points)
-        List<Point3D> result = sphere.findIntsersections(new Ray(new Point3D(-5, 0, 0), new Vector(5, 0, 1)));
+        List<Intersectable.GeoPoint> result = sphere.findGeoIntersections(new Ray(new Point3D(-5, 0, 0), new Vector(5, 0, 1)));
         assertEquals(2, result.size(), "Wrong number of points");
 
         if (result.get(0).getX() > result.get(1).getX())

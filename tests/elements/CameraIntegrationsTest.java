@@ -34,7 +34,7 @@ public class CameraIntegrationsTest {
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
-                var Actual = geo.findIntsersections(cam.constructRayThroughPixel(3, 3, j, i));
+                var Actual = geo.findIntersections(cam.constructRayThroughPixel(3, 3, j, i));
                 if (Actual != null) {
                     if (all_intersections == null) {
                         all_intersections = new LinkedList<>();

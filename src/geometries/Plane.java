@@ -71,8 +71,8 @@ public class Plane extends Geometry {
     }
 
     /**
-     Gets a beam and returns a list of the intersection
-     points of the shape with the ray and also returns the shape name
+     Receives a ray and returns a list of the
+     points that cut with the ray and also returns the name of the shape,plane
      */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {

@@ -106,7 +106,10 @@ public class Polygon extends Geometry {
         return _plane.getNormal();
     }
 
-
+    /**
+     Receives a ray and returns a list of the
+     points that cut with the ray and also returns the name of the shape, polygon
+     */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
         List<GeoPoint> result = _plane.findGeoIntersections(ray);
@@ -149,6 +152,10 @@ public class Polygon extends Geometry {
 
         return result;
     }
+
+
+
+
 }
 
 

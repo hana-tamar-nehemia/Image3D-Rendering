@@ -32,9 +32,5 @@ public class Triangle extends Polygon{
     public Vector getNormal(Point3D point) {
         return _plane.getNormal();
     }
-    @Override
 
-    public List<Point3D> findIntsersections(Ray ray) {
-        return super.findIntsersections(ray);
-    }
 }
