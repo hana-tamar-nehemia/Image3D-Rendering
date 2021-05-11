@@ -18,12 +18,16 @@ public class Geometries implements Intersectable {
         Collections.addAll(_intersectables, geometries);
     }
 
+    /**
+     Gets a beam and returns a list of the intersection points
+     of the shape with the ray and also returns the shape name
+     */
     @Override
-    public List<Point3D> findIntsersections(Ray ray) {
-        List<Point3D> result = null;
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
+        List<GeoPoint> result = null;
         for (Intersectable item : _intersectables) {
             //get intersections points of a particular item from _intersectables
-            List<Point3D> itempoints = item.findIntsersections(ray);
+            List<GeoPoint> itempoints = item.findGeoIntersections(ray);
             if(itempoints!= null){
                 //first time initialize result to new LinkedList
                 if(result== null){
@@ -36,6 +40,7 @@ public class Geometries implements Intersectable {
 
         return result;
     }
+
 
 }
 

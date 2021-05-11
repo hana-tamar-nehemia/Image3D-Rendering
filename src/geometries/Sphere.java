@@ -8,7 +8,7 @@ import primitives.Util;
 import java.util.List;
 import static primitives.Util.alignZero;
 
-public class Sphere implements Geometry{
+public class Sphere extends Geometry{
     final Point3D _center;
     final  double _radius;
 

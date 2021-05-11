@@ -13,8 +13,17 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Integration tests between the formation of beams from a camera
+ * and the calculation of cuts of a beam with geometric bodies from the previous stage.
+ */
 public class CameraIntegrationsTest {
-
+    /**
+     * Private auxiliary function
+     * @param cam camera
+     * @param geo any shape
+     * @param numOfIntersections The number of points of intersection with the shape
+     */
     void assertTestCamera(Camera cam, Intersectable geo, int numOfIntersections) {
         int count = 0;
 
@@ -32,7 +41,7 @@ public class CameraIntegrationsTest {
                     }
                     all_intersections.addAll(Actual);
                 }
-                if (Actual == null)
+                if (Actual== null)
                     count += 0;
                 else
                     count += Actual.size();
@@ -42,29 +51,36 @@ public class CameraIntegrationsTest {
             assertEquals(count, numOfIntersections, "the Actual Intersections is wrong");
     }
 
+    /**
+     * Integration tests between the formation of
+     * rays from a camera and the calculation of cuts of a  ray with Sphere
+     */
     @Test
-    void findIntersectionsWithSphere() {
+    void findIntersectionsWithSphere(){
         Camera camera1 = new Camera(Point3D.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0));
         Camera camera2 = new Camera(new Point3D(0, 0, 0.5), new Vector(0, 0, -1), new Vector(0, -1, 0));
 
         // 1: Small Sphere 2 points
-        assertTestCamera(camera1, new Sphere(new Point3D(0, 0, -3), 1), 2);
+        assertTestCamera(camera1, new Sphere( new Point3D(0, 0, -3),1), 2);
 
         // 2: Big Sphere 18 points
-        assertTestCamera(camera2, new Sphere(new Point3D(0, 0, -2.5), 2.5), 18);
+        assertTestCamera(camera2, new Sphere( new Point3D(0, 0, -2.5),2.5), 18);
 
         // 3: Medium Sphere 10 points
-        assertTestCamera(camera2, new Sphere(new Point3D(0, 0, -2), 2), 10);
+        assertTestCamera(camera2, new Sphere( new Point3D(0, 0, -2),2), 10);
 
         // 4: Inside Sphere 9 points
-        assertTestCamera(camera2, new Sphere(new Point3D(0, 0, -1), 4), 9);
+        assertTestCamera(camera2, new Sphere( new Point3D(0, 0, -1),4), 9);
 
         // 5: Beyond Sphere 0 points
-        assertTestCamera(camera2, new Sphere(new Point3D(0, 0, 1), 0.5), 0);
+        assertTestCamera(camera2, new Sphere( new Point3D(0, 0, 1),0.5), 0);
     }
-
+    /**
+     * Integration tests between the formation of
+     * rays from a camera and the calculation of cuts of a  ray with Plane
+     */
     @Test
-    void findIntersectionsWithPlane() {
+    void findIntersectionsWithPlane(){
         Camera camera1 = new Camera(Point3D.ZERO, new Vector(0, 0, -1), new Vector(0, -1, 0));
 
         // 1: Plane against camera 9 points
@@ -80,9 +96,12 @@ public class CameraIntegrationsTest {
         assertTestCamera(camera1, new Plane(new Point3D(0, 0, -5), new Vector(0, 1, 1)), 6);
 
     }
-
+    /**
+     * Integration tests between the formation of
+     * rays from a camera and the calculation of cuts of a  ray with Triangle
+     */
     @Test
-    void findIntersectionsWithTriangle() {
+    void findIntersectionsWithTriangle(){
         Camera camera1 = new Camera(Point3D.ZERO, new Vector(0, 0, -1), new Vector(0, -1, 0));
 
         // 1: Small triangle 1 point
