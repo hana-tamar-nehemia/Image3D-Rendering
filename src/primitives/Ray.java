@@ -77,24 +77,7 @@ public class Ray {
         }
         return  result;
     }
-    public GeoPoint findClosestGeoPoint(List<GeoPoint> geoList){
-        GeoPoint result =null;
-        double closestDistance = Double.MAX_VALUE;
 
-        if(geoList== null){
-            return null;
-        }
-
-        for (GeoPoint geo: geoList) {
-            double temp = geo.point.distance(_p0);
-            if(temp < closestDistance){
-                closestDistance =temp;
-                result =geo;
-            }
-        }
-
-        return  result;
-    }
 
 
     @Override

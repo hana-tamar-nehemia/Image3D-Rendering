@@ -23,7 +23,7 @@ public abstract class Geometry implements Intersectable {
     }
 
     public Geometry set_emission(Color emission) {
-        _emission = _emission;
+        _emission = emission;
         return this ;
     }
 
