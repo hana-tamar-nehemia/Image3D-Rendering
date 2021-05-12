@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Point3D;
 import primitives.Ray;
 
 import java.util.Collections;
@@ -20,6 +21,7 @@ public class Geometries implements Intersectable {
     /**
      Gets a beam and returns a list of the intersection points
      of the shape with the ray and also returns the shape name
+     * @return
      */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {

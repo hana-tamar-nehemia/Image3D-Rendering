@@ -3,7 +3,6 @@ package geometries;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
-
 import java.util.List;
 
 import static primitives.Util.alignZero;
@@ -71,8 +70,9 @@ public class Plane extends Geometry {
     }
 
     /**
-     Receives a ray and returns a list of the
-     points that cut with the ray and also returns the name of the shape,plane
+     Gets a beam and returns a list of the intersection
+     points of the shape with the ray and also returns the shape name
+     * @return
      */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
