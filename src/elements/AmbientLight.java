@@ -10,32 +10,18 @@ import primitives.Color;
  * a constructor that receives values and calculates the final power of fill,
  * and a getIntensity () function that returns the Color ambient intensity value.
  */
-public class AmbientLight {
+public class AmbientLight extends Light{
     /**
-     * Light intensity
+     * constractor
+     *
+     * @param intensity orginal light intensity parameter
+     * @param ka the light intensity damping parameter
      */
-    final private Color _intensity;
-
+    public AmbientLight(Color intensity, double ka) {
+        super(intensity.scale(ka));
+    }
     public AmbientLight() {
-        _intensity=Color.BLACK;
+        super(Color.BLACK);
     }
-
-    /**
-     * Constructor
-     * @param Ia intensity color
-     * @param Ka constant for intensity
-     */
-    public AmbientLight(Color Ia, double Ka) {
-        _intensity = Ia.scale(Ka);
-    }
-
-    /**
-     * get intensity color
-     * @return intensity
-     */
-    public Color getIntensity() {
-        return _intensity;
-    }
-
 }
 

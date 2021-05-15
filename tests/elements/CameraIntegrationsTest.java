@@ -25,13 +25,22 @@ public class CameraIntegrationsTest {
      * @param numOfIntersections The number of points of intersection with the shape
      */
     void assertTestCamera(Camera cam, Intersectable geo, int numOfIntersections) {
-        int count = 0;
-
-        List<Intersectable.GeoPoint> all_intersections = null;
-
         cam.setViewPlaneSize(3, 3);
         cam.setDistance(1);
 
+        int count = countIntersections(cam, geo);
+
+        assertEquals(count, numOfIntersections, "the Actual Intersections is wrong");
+    }
+
+    /**
+     *
+     * Checks and returns how many points of intersection there are with the shape
+
+     */
+    private int countIntersections(Camera cam, Intersectable geo) {
+        List<Intersectable.GeoPoint> all_intersections=null;
+        int count=0;
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
                 var Actual = geo.findGeoIntersections(cam.constructRayThroughPixel(3, 3, j, i));
@@ -47,8 +56,7 @@ public class CameraIntegrationsTest {
                     count += Actual.size();
             }
         }
-
-            assertEquals(count, numOfIntersections, "the Actual Intersections is wrong");
+        return count;
     }
 
     /**
