@@ -1,23 +1,20 @@
 package primitives;
 
-public class Material {
-    public double _kD=0;
-    public double _kS=0;
-    public int _nShininess=0;
+public class  Material {
+    public double _Kd = 0;
+    public double _Ks = 0;
+    public int _nShininess = 0;
 
-    public Material set_kD(double _kD) {
-        this._kD = _kD;
-        return this;
+    public void setKd(double _Kd) {
+        this._Kd = _Kd;
     }
 
-    public Material set_kS(double _kS) {
-        this._kS = _kS;
-        return this;
+    public void setKs(double _Ks) {
+        this._Ks = _Ks;
     }
 
-    public Material set_nShininess(int _nShininess) {
+    public void setShininess(int _nShininess) {
         this._nShininess = _nShininess;
-        return this;
-
     }
 }
+
