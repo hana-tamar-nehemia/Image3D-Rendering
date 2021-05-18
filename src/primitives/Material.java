@@ -1,34 +1,25 @@
-package elements;
+package primitives;
 
-public class Material {
-    public double Kd = 0;
-    public double Ks = 0;
-    public int nShininess = 0;
+public class  Material {
+    public double _Kd = 0;
+    public double _Ks = 0;
+    public int _nShininess = 0;
 
-    public double getKd() {
-        return Kd;
-    }
-
-    public Material setKd(double kd) {
-        Kd = kd;
+    public Material setKd(double Kd) {
+        this._Kd = Kd;
         return this;
+
     }
 
-    public double getKs() {
-        return Ks;
-    }
-
-    public Material setKs(double ks) {
-        Ks = ks;
+    public Material setKs(double Ks) {
+        this._Ks = Ks;
         return this;
-    }
 
-    public int getShininess() {
-        return nShininess;
     }
 
     public Material setShininess(int nShininess) {
-        this.nShininess = nShininess;
+        this._nShininess = nShininess;
         return this;
     }
 }
+

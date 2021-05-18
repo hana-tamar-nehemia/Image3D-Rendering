@@ -5,6 +5,7 @@ import elements.LightSource;
 import geometries.Geometries;
 import primitives.Color;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class Scene {
     public Color background = Color.BLACK;
     public AmbientLight ambientlight= new AmbientLight(new Color(192, 192, 192),1.d); ;
     public Geometries geometries = null;
-    public List<LightSource> _lights;
+    public List<LightSource> _lights= new LinkedList<>();
     /**
      * A builder that gets the name of the scene and also builds an empty
      * collection of bodies for model D3.
