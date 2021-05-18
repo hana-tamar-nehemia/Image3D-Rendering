@@ -5,8 +5,8 @@ import primitives.Point3D;
 import primitives.Vector;
 
 public class PointLight extends Light implements LightSource{
-    private  Point3D _position;
-    private  double _Kc = 1;
+    private final Point3D _position;
+    private  double _Kc = 1.0;
     private  double _Kl=0;
     private  double _Kq=0;
     /**
@@ -43,15 +43,18 @@ public class PointLight extends Light implements LightSource{
     }
 
 
-    public void setKc(double _Kc) {
-        this._Kc = _Kc;
+    public PointLight setKc(double Kc) {
+        this._Kc = Kc;
+        return this;
     }
 
-    public void setKl(double _Kl) {
-        this._Kl = _Kl;
+    public PointLight setKl(double Kl) {
+        this._Kl = Kl;
+        return this;
     }
 
-    public void setKq(double _Kq) {
-        this._Kq = _Kq;
+    public PointLight setKq(double Kq) {
+        this._Kq = Kq;
+        return this;
     }
 }

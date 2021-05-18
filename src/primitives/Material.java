@@ -5,16 +5,21 @@ public class  Material {
     public double _Ks = 0;
     public int _nShininess = 0;
 
-    public void setKd(double _Kd) {
-        this._Kd = _Kd;
+    public Material setKd(double Kd) {
+        this._Kd = Kd;
+        return this;
+
     }
 
-    public void setKs(double _Ks) {
-        this._Ks = _Ks;
+    public Material setKs(double Ks) {
+        this._Ks = Ks;
+        return this;
+
     }
 
-    public void setShininess(int _nShininess) {
-        this._nShininess = _nShininess;
+    public Material setShininess(int nShininess) {
+        this._nShininess = nShininess;
+        return this;
     }
 }
 

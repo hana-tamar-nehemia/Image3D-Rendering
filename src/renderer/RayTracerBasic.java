@@ -55,24 +55,24 @@ public class RayTracerBasic extends RayTracerBase {
         return basicColor.add(calcLocalEffects(point,ray));
     }
 
-    private Color calcLocalEffects(GeoPoint point, Ray ray) {
+    private Color calcLocalEffects(GeoPoint Gpoint, Ray ray) {
         Vector v = ray.getDir ();
-        Vector n = point.geometry.getNormal(point.point);
+        Vector n = Gpoint.geometry.getNormal(Gpoint.point);
         double nv = alignZero(n.dotProduct(v));
         if (nv == 0)
         {
             return Color.BLACK;
         }
-        Material material = point.geometry.get_material();
+        Material material = Gpoint.geometry.get_material();
         int nShininess = material._nShininess;
         double kd = material._Kd;
         double ks = material._Ks;
         Color color = Color.BLACK;
         for (LightSource lightSource : _scene._lights) {
-            Vector l = lightSource.getL(point.point);
+            Vector l = lightSource.getL(Gpoint.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) { // sign(nl) == sing(nv)
-                Color lightIntensity = lightSource.getIntensity(point.point);
+                Color lightIntensity = lightSource.getIntensity(Gpoint.point);
                 color = color.add(calcDiffusive(kd, l, n, lightIntensity),
                         calcSpecular(ks, l, n, v, nShininess, lightIntensity));
             }
@@ -81,7 +81,7 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
-    Vector r= l.subtract(n.scale((l.dotProduct(n)*2)));
+    Vector r= l.subtract(n.scale(l.dotProduct(n)*2));
     double vrMinus= v.scale(-1).dotProduct(r);
     double vrN= Math.pow(vrMinus,nShininess);
     return lightIntensity.scale(ks*vrN);

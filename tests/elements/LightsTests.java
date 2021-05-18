@@ -1,5 +1,4 @@
 package elements;
-import org.junit.Test;
 
 import elements.*;
 import geometries.*;

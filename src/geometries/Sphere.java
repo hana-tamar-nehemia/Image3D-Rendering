@@ -57,8 +57,8 @@ public class Sphere extends Geometry{
     public Vector getNormal(Point3D point) {
         Vector n=point.subtract(_center);
         n.normalize();
-        if (n.length()!=1)
-            throw new IllegalArgumentException("the vector is not normalize");
+//        if (n.length()!=1)
+//            throw new IllegalArgumentException("the vector is not normalize");
         return n;
     }
 
