@@ -14,7 +14,8 @@ import scene.Scene;
  *
  * @author dzilb
  */
-public class ReflectionRefractionTests {
+public class
+ReflectionRefractionTests {
     private Scene scene = new Scene("Test scene");
 
     /**

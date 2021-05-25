@@ -26,7 +26,7 @@ public class BasicRayTracer extends RayTracerBase {
 // orders of magnitude of the shapes in your
 // image so that the shift is not noticeable
 // in the image
-    private static final double DELTA = 0.1;
+//    private static final double DELTA = 0.1;
     private static final double INITIAL_K = 1.0;
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final double MIN_CALC_COLOR_K = 0.001;
@@ -115,7 +115,7 @@ public class BasicRayTracer extends RayTracerBase {
                 Vector l = lightSource.getL(gpoint.point);
                 double ln = alignZero(n.dotProduct(l));
                 if (ln * nv > 0) { // sign(nl) == sing(nv)\
-                    if (unshaded(lightSource, gpoint)) {
+                    if (unshaded(lightSource, l,n,gpoint.point)) {
                         Color lightIntensity = lightSource.getIntensity(gpoint.point);
                         color = color.add(calcDiffusive(material._Kd, l, n, lightIntensity),
                                 calcSpecular(material._Ks, l, n, v, nShininess, lightIntensity));
@@ -126,19 +126,24 @@ public class BasicRayTracer extends RayTracerBase {
         }
 
     /**
-     * Non-shading test operation between point and light source
-     * @param lightSource
-     * @param gpoint
+     *
+     * @param light
+     * @param l
+     * @param n
+     * @param point
      * @return
      */
-        private boolean unshaded (LightSource lightSource, GeoPoint gpoint){
-            Vector l = lightSource.getL(gpoint.point).scale(-1).normalized();
-            Vector n = gpoint.geometry.getNormal(gpoint.point);
-            Ray lightRay = new Ray(gpoint.point, lightSource, n, DELTA);
-            List<GeoPoint> intersections = _scene.geometries
-                    .findGeoIntersections(lightRay, lightSource.getDistance(gpoint.point));
-            return intersections == null;
-        }
+
+            private boolean unshaded(LightSource light, Vector l, Vector n, Point3D point) {
+                Vector dir = l.scale(-1);
+                Ray lightRay = new Ray(point, dir, n);
+                //search for intersections point only between the position of the light source and the object
+               List<GeoPoint> intersections = _scene.geometries.findGeoIntersections(lightRay, light.getDistance(point));
+               
+                return intersections == null;
+            }
+
+
 
         private Color calcSpecular ( double ks, Vector l, Vector n, Vector v,int nShininess, Color lightIntensity){
             Vector r = l.subtract(n.scale(l.dotProduct(n) * 2));

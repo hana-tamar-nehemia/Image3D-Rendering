@@ -56,4 +56,5 @@ public interface Intersectable {
                 .map(gp -> gp.point)
                 .collect(Collectors.toList());
     }
+
 }

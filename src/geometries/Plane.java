@@ -14,10 +14,10 @@ public class Plane extends Geometry {
     final Vector _normal;
 
     /**
-     * TODO explanations here
      *
-     * @param p0
-     * @param normal vector for the normal (will bwe normalized automatically)
+     * @param p1
+     * @param p2
+     * @param p3
      */
     public Plane(Point3D p1, Point3D p2, Point3D p3) {
         _q0 = p1;
@@ -83,16 +83,32 @@ public class Plane extends Geometry {
             return null;
         }
 
+        Vector p0_Q0 = _q0.subtract(P0);
+        double nP0Q0 = alignZero(n.dotProduct(p0_Q0));
+        if (isZero(nP0Q0)) {
+            return null;
+        }
+        double nv = alignZero(n.dotProduct(v));
         //
-        if (isZero(n.dotProduct(v))) { //if ray is parallel to plane
+        if (isZero(nv)) {
+            return null;
+        }
+//        if (isZero(n.dotProduct(v))) { //if ray is parallel to plane
+//            return null;
+//        }
+
+//        double t = n.dotProduct(_q0.subtract(P0)) / n.dotProduct(v); //calculating the distamce
+        double t = alignZero(nP0Q0 / nv);
+        if (t <= 0 || alignZero(t - maxDistance) > 0) {
             return null;
         }
 
-        double t = n.dotProduct(_q0.subtract(P0)) / n.dotProduct(v); //calculating the distamce
-
-        if (t > 0 && alignZero(t - maxDistance) <= 0) {
-            return List.of(new GeoPoint(this, ray.getPoint(t)));
-        }
-        return null;
+        Point3D p=ray.getPoint(t);
+        return List.of(new GeoPoint(this,p));
+//        if (t > 0 && alignZero(t - maxDistance) <= 0) {
+//            return List.of(new GeoPoint(this, ray.getPoint(t)));
+//        }
+//        return null;
     }
+
 }

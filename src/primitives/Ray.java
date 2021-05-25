@@ -11,8 +11,9 @@ import java.util.List;
 import static primitives.Util.isZero;
 
 public class Ray {
-    Point3D _p0;
-    Vector _dir;
+   private final Point3D _p0;
+   private final  Vector _dir;
+    private static final double DELTA = 0.1;
 
     /**
      * constractor who get point 3D and diraction vector
@@ -20,22 +21,16 @@ public class Ray {
      * @param dir
      */
     public Ray(Point3D p0, Vector dir) {
-        this._p0 = p0;
-        this._dir = dir.normalized();
+        _p0 = p0;
+        _dir = dir.normalized();
     }
 
-    /**
-     * Creat a new ray from the sending point
-     * @param gpoint
-     * @param lightSource
-     * @param delta
-     */
-    public Ray(Point3D point, LightSource lightSource,  Vector n, double delta) {
-        Vector l =lightSource.getL(point).scale(-1);
-        Vector _delta = n.scale(n.dotProduct(l)>0? delta : -delta);
-        _p0 = point.add(_delta);
-         _dir = l;
-    }
+public Ray(Point3D point, Vector lightDirection, Vector n) {
+    Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : - DELTA);
+    Point3D p=point.add(delta);
+    _p0= p;
+    _dir = lightDirection;
+}
 
     public Point3D getP0() {
         return _p0;
