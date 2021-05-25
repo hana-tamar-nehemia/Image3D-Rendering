@@ -69,19 +69,19 @@ public class CameraIntegrationsTest {
         Camera camera2 = new Camera(new Point3D(0, 0, 0.5), new Vector(0, 0, -1), new Vector(0, -1, 0));
 
         // 1: Small Sphere 2 points
-        assertTestCamera(camera1, new Sphere( new Point3D(0, 0, -3),1), 2);
+        assertTestCamera(camera1, new Sphere(1, new Point3D(0, 0, -3)), 2);
 
         // 2: Big Sphere 18 points
-        assertTestCamera(camera2, new Sphere( new Point3D(0, 0, -2.5),2.5), 18);
+        assertTestCamera(camera2, new Sphere(2.5, new Point3D(0, 0, -2.5)), 18);
 
         // 3: Medium Sphere 10 points
-        assertTestCamera(camera2, new Sphere( new Point3D(0, 0, -2),2), 10);
+        assertTestCamera(camera2, new Sphere(2, new Point3D(0, 0, -2)), 10);
 
         // 4: Inside Sphere 9 points
-        assertTestCamera(camera2, new Sphere( new Point3D(0, 0, -1),4), 9);
+        assertTestCamera(camera2, new Sphere(4, new Point3D(0, 0, -1)), 9);
 
         // 5: Beyond Sphere 0 points
-        assertTestCamera(camera2, new Sphere( new Point3D(0, 0, 1),0.5), 0);
+        assertTestCamera(camera2, new Sphere(0.5, new Point3D(0, 0, 1)), 0);
     }
     /**
      * Integration tests between the formation of
