@@ -37,9 +37,8 @@ public class Triangle extends Polygon{
 //   public List<Point3D> findIntsersections(Ray ray) {
 //       return super.findIntsersections(ray);
 //    }
-
-    @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
-        return super.findGeoIntersections(ray);
-    }
+//    @Override
+//    public List<GeoPoint> findGeoIntersections(Ray ray) {
+//        return super.findGeoIntersections(ray);
+//    }
 }

@@ -3,6 +3,7 @@ package geometries;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
+
 import java.util.List;
 
 import static primitives.Util.alignZero;
@@ -23,10 +24,7 @@ public class Plane extends Geometry {
         Vector U = p2.subtract(p1);
         Vector V = p3.subtract(p1);
         Vector N = U.crossProduct(V);
-        N.normalize();
-        if (N.length() != 1)
-            throw new IllegalArgumentException("the vector is not normelized");
-        _normal = N;
+        _normal = N.normalize();
     }
 
     /**
@@ -70,46 +68,31 @@ public class Plane extends Geometry {
     }
 
     /**
-     Gets a beam and returns a list of the intersection
-     points of the shape with the ray and also returns the shape name
+     * Gets a beam and returns a list of the intersection
+     * points of the shape with the ray and also returns the shape name
+     *
      * @return
      */
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
         Point3D P0 = ray.getP0();
         Vector v = ray.getDir();
-
         Vector n = _normal;
 
-        if (_q0.equals(P0)) {
+        if (_q0.equals(P0)) { //if P0 is Q0
             return null;
         }
-
-        Vector P0_Q0 = _q0.subtract(P0);
-        //numerator
-        double nP0Q0 = alignZero(n.dotProduct(P0_Q0));
 
         //
-        if (isZero(nP0Q0)) {
+        if (isZero(n.dotProduct(v))) { //if ray is parallel to plane
             return null;
         }
 
-        //denominator
-        double nv = alignZero(n.dotProduct(v));
+        double t = n.dotProduct(_q0.subtract(P0)) / n.dotProduct(v); //calculating the distamce
 
-        // ray is lying in the plane axis
-        if (isZero(nv)) {
-            return null;
+        if (t > 0 && alignZero(t - maxDistance) <= 0) {
+            return List.of(new GeoPoint(this, ray.getPoint(t)));
         }
-
-        double t = alignZero(nP0Q0 / nv);
-
-        if (t <= 0) {
-            return null;
-        }
-
-        Point3D point = ray.getPoint(t);
-
-        return List.of(new GeoPoint(this,point));
+        return null;
     }
 }

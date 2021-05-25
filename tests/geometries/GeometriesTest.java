@@ -27,7 +27,7 @@ class GeometriesTest {
 
         geo._intersectables.add(new Triangle(new Point3D(-2, 0, 0), new Point3D(0, -4, 0), new Point3D(2, 0, 0)));
         geo._intersectables.add(new Plane(new Point3D(0, 0, 6), new Point3D(-8, 0, 0),new Point3D(0, 6, 0)));
-        geo._intersectables.add(new Sphere(new Point3D(0, 0, 2), 1));
+        geo._intersectables.add(new Sphere(1, new Point3D(0, 0, 2)));
 
         //TC12: No shape cut
         assertEquals( null, geo.findIntersections(new Ray(new Point3D(-4,0 , 0), new Vector(-2, -4, 0))),"Ray not cut any shape");
