@@ -18,7 +18,7 @@ import java.util.List;
 public class Scene {
     private final String _name;
     public Color background = Color.BLACK;
-    public AmbientLight ambientlight= new AmbientLight(background,0); ;
+    public AmbientLight ambientlight= new AmbientLight(); ;
     public Geometries geometries = null;
     public List<LightSource> _lights= new LinkedList<>();
     /**

@@ -11,9 +11,6 @@ import scene.Scene;
 public abstract class RayTracerBase {
 
     protected Scene _scene;
-//    private static final int MAX_CALC_COLOR_LEVEL = 10;
-//    private static final double MIN_CALC_COLOR_K = 0.001;
-
     public RayTracerBase(Scene scene) {
         _scene = scene;
     }
