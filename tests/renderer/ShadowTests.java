@@ -128,7 +128,7 @@ public class ShadowTests {
                         .set_material(new Material().setKd(0.5).setKs(0.5).setShininess(30)) //
         );
         scene._lights.add( //
-                new SpotLight(new Color(400, 240, 0), new Point3D(-88, -88, 120), new Vector(1,1, -3)) //
+                new SpotLight(new Color(400, 240, 0), new Point3D(-88, -88, 120), new Vector(1, 1, -3)) //
                         .setKl(1E-5).setKq(1.5E-7));
 
         Render render = new Render(). //
@@ -138,6 +138,7 @@ public class ShadowTests {
         render.renderImage();
         render.writeToImage();
     }
+
     @Test
     public void sphereTriangleInitial4() {
         scene.geometries.add( //
@@ -149,7 +150,7 @@ public class ShadowTests {
                         .set_material(new Material().setKd(0.5).setKs(0.5).setShininess(30)) //
         );
         scene._lights.add( //
-                new SpotLight(new Color(400, 240, 0), new Point3D(-75,-75,68), new Vector(1,1, -3)) //
+                new SpotLight(new Color(400, 240, 0), new Point3D(-75, -75, 68), new Vector(1, 1, -3)) //
                         .setKl(1E-5).setKq(1.5E-7));
 
         Render render = new Render(). //
@@ -163,19 +164,21 @@ public class ShadowTests {
 
     @Test
     public void SeveralDifferentShapes() {
-        scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.orange), 0.15));
+
+        scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.BLUE), 0.30));
 
         scene.geometries.add( //
-                new Triangle(new Point3D(-127.90272, 4.45471, -108.28985), new Point3D(53.87433, -39.99535, -68.62832), new Point3D(75, 75, -34.72245))
-                        .set_material(new Material().setKs(0.8).setShininess(30)), //
-                new Triangle(new Point3D(-139.40423, 1.85771, -110.28105), new Point3D(-74.63972, 136.83608, -50), new Point3D(75, 75, -32.73125)) //
-                        .set_material(new Material().setKs(0.8).setShininess(30)) //
-//                new Sphere(30, new Point3D(0, 0, -115)) //
-//                        .set_emission(new Color(java.awt.Color.BLUE)) //
-//                        .set_material(new Material().setKd(0.5).setKs(0.5).setShininess(30)) //
+                new Triangle(new Point3D(-85.06883, -78.45882, -115), new Point3D(-112.33743, -154.95062, 0), new Point3D(75, 75, -150)) //
+                        .set_material(new Material().setKs(0.8).setShininess(40)), //
+                new Triangle(new Point3D(-70, 70, -140), new Point3D(-70, 70, -200), new Point3D(75, 75, -150)) //
+                        .set_material(new Material().setKs(0.8).setShininess(40)),//
+
+                new Sphere(30, new Point3D(0, 0, -115)) //
+                        .set_emission(new Color(java.awt.Color.BLUE)) //
+                        .set_material(new Material().setKd(0.5).setKs(0.5).setShininess(30)) //
         );
         scene._lights.add( //
-                new SpotLight(new Color(700, 400, 400), new Point3D(40, 40, 115), new Vector(-1, -1, -4)) //
+                new SpotLight(new Color(700,400,400), new Point3D(40, 40, 115), new Vector(0,0,-5)) //
                         .setKl(4E-4).setKq(2E-5));
 
         Render render = new Render() //
@@ -184,6 +187,5 @@ public class ShadowTests {
                 .setRayTracer(new BasicRayTracer(scene));
         render.renderImage();
         render.writeToImage();
-        }
-
     }
+}
