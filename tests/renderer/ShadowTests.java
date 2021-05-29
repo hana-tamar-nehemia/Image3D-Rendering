@@ -168,18 +168,23 @@ public class ShadowTests {
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.BLUE), 0.30));
 
         scene.geometries.add( //
-                new Triangle(new Point3D(-85.06883, -78.45882, -115), new Point3D(-112.33743, -154.95062, 0), new Point3D(75, 75, -150)) //
-                        .set_material(new Material().setKs(0.8).setShininess(40)), //
-                new Triangle(new Point3D(-70, 70, -140), new Point3D(-70, 70, -200), new Point3D(75, 75, -150)) //
-                        .set_material(new Material().setKs(0.8).setShininess(40)),//
+                new Triangle(new Point3D(10, 0, 0), new Point3D(70,0,0), new Point3D(0, 75, 50)) //
+                        .set_material(new Material().setKs(0.5).setShininess(10)), //
+                new Triangle(new Point3D(-10,0,0), new Point3D(-70,0,0), new Point3D(0, 75, 50)) //
+                        .set_material(new Material().setKs(0.5).setShininess(10)),//
 
-                new Sphere(30, new Point3D(0, 0, -115)) //
-                        .set_emission(new Color(java.awt.Color.BLUE)) //
+                new Sphere(25, new Point3D(0, 0, 75)) //
+                        .set_emission(new Color(60,20,60)) //
+                        .set_material(new Material().setKd(0.5).setKs(0.5).setShininess(30)) ,//
+                new Sphere(13, new Point3D(0, 0, 88)) //
+                        .set_emission(new Color(java.awt.Color.RED)) //
                         .set_material(new Material().setKd(0.5).setKs(0.5).setShininess(30)) //
         );
         scene._lights.add( //
-                new SpotLight(new Color(700,400,400), new Point3D(40, 40, 115), new Vector(0,0,-5)) //
-                        .setKl(4E-4).setKq(2E-5));
+                new SpotLight(new Color(700,600,600), new Point3D(40, 40, 115), new Vector(0,0,-5)) //
+                        .setKl(4E-4).setKq(2E-5)
+        );
+
 
         Render render = new Render() //
                 .setImageWriter(new ImageWriter("try", 600, 600)) //
