@@ -3,8 +3,11 @@ package renderer;
 import elements.Camera;
 import primitives.Color;
 import primitives.Ray;
+
 import scene.Scene;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.MissingResourceException;
 
 /**
@@ -18,6 +21,7 @@ public class Render {
 
     /**
      * setter method of ImageWriter
+     *
      * @param imageWriter
      * @return
      */
@@ -25,8 +29,10 @@ public class Render {
         _imageWriter = imageWriter;
         return this;
     }
+
     /**
      * setter method of camera
+     *
      * @param camera
      * @return
      */
@@ -34,8 +40,10 @@ public class Render {
         _camera = camera;
         return this;
     }
+
     /**
      * setter method of rayTracerBase
+     *
      * @param rayTracer
      * @return
      */
@@ -78,10 +86,49 @@ public class Render {
         }
     }
 
+
+    public void renderImageForSuperSampling() {
+        try {
+            if (_imageWriter == null) {
+                throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
+            }
+            if (_camera == null) {
+                throw new MissingResourceException("missing resource", Camera.class.getName(), "");
+            }
+            if (_rayTracerBase == null) {
+                throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");
+            }
+
+            //rendering the image
+            int nX = _imageWriter.getNx();
+            int nY = _imageWriter.getNy();
+            for (int i = 0; i < nY; i++) {
+                for (int j = 0; j < nX; j++) {
+                    //get list of rays from the same one pixsel
+                    LinkedList<Ray> rays = _camera.constructRayThroughPixelSuperSample(nX, nY, j, i);
+                    //sending the rays to function that calculate the average of all the color of the rays
+                    Color k = pixelColorAverage(rays);
+                    _imageWriter.writePixel(j, i, k);
+                }
+            }
+        } catch (MissingResourceException e) {
+            throw new UnsupportedOperationException("Not implemented yet" + e.getClassName());
+        }
+    }
+
+    private Color pixelColorAverage(LinkedList<Ray> rays) {
+        Color color = Color.BLACK;
+        for (Ray n : rays){
+            color = color.add(_rayTracerBase.traceRay(n));
+        }
+        return color.scale(1.d/rays.size());
+    }
+
     /**
      * A method that will create a grid of lines.
      * Of course first the method will check that in the field of the image manufacturer
      * a non-empty value was entered and in case of lack of throwing an exception
+     *
      * @param interval
      * @param color
      */
@@ -90,12 +137,12 @@ public class Render {
         int nY = _imageWriter.getNy();
         for (int i = 0; i < nY; i++) {
             for (int j = 0; j < nX; j++) {
-                    if (i % interval == 0 || j % interval == 0) {
-                        _imageWriter.writePixel(j, i, color);
-                    }
+                if (i % interval == 0 || j % interval == 0) {
+                    _imageWriter.writePixel(j, i, color);
                 }
             }
         }
+    }
 
     /**
      * The method will first check that a blank value has been entered
@@ -105,3 +152,6 @@ public class Render {
         _imageWriter.writeToImage();
     }
 }
+
+
+

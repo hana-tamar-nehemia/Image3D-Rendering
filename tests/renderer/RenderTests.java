@@ -14,7 +14,8 @@ import scene.Scene;
 public class RenderTests {
     private Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0)) //
             .setDistance(100) //
-            .setViewPlaneSize(500, 500);
+            .setViewPlaneSize(500, 500)
+            .setNumOfRays(9);
 
     /**
      * Produce a scene with basic 3D model and render it into a png image with a
@@ -46,6 +47,7 @@ public class RenderTests {
         render.printGrid(100, new Color(java.awt.Color.YELLOW));
         render.writeToImage();
     }
+
 
     /**
      * Test for XML based scene - for bonus
