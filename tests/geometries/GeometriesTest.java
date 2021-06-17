@@ -17,32 +17,29 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GeometriesTest {
 
-
     @Test
-    void testfindIntsersections() {
-        Geometries geo = new Geometries();
+    void findIntersections() throws IllegalAccessException {
+        Geometries geometries = new Geometries();
 
-        //TC11: Empty list
-       assertNull(  geo.findGeoIntersections(new Ray(new Point3D(3, 1, 0.5), new Vector(1, 1, 0))),"list Empty");
+        // =============== Boundary Values Tests ==================
 
-        geo._intersectables.add(new Triangle(new Point3D(-2, 0, 0), new Point3D(0, -4, 0), new Point3D(2, 0, 0)));
-        geo._intersectables.add(new Plane(new Point3D(0, 0, 6), new Point3D(-8, 0, 0),new Point3D(0, 6, 0)));
-        geo._intersectables.add(new Sphere(1, new Point3D(0, 0, 2)));
+        assertNull(geometries.findIntersections(new Ray(new Point3D(0,1,0), new Vector(1,0,5))),
+                "empty geometries collections");
 
-        //TC12: No shape cut
-        assertEquals( null, geo.findIntersections(new Ray(new Point3D(-4,0 , 0), new Vector(-2, -4, 0))),"Ray not cut any shape");
-
-        //TC13: One shape cut
-        List<Point3D> l = geo.findIntersections(new Ray(new Point3D(-4, 0, 0), new Vector(-6, 6, 0)));
-        assertEquals( 1, l.size(),"Ray cut One shape ");
+        geometries.add(new Plane(new Point3D(1,1,0), new Vector(0,0,1)));
+        geometries.add(new Triangle(new Point3D(1,0,0), new Point3D(0,1,0), new Point3D(0,0,1)));
+        geometries.add((Intersectable) new Sphere(1d, new Point3D(1, 0, 0)));
 
 
-        //TC14: All shapes cut
-        l = geo.findIntersections(new Ray(new Point3D(0.05, -2.5, -1), new Vector(-0.05, 4.5, 5)));
-        assertEquals( 4, l.size(),"Ray cut all shape");
+        assertNull(geometries.findIntersections(new Ray(new Point3D(0,0,2), new Vector(0,-1,0))),
+                "each geometry doesn't have intersections points");
 
-        //TC15: more then 1 shapes cut but no all of them
-        l = geo.findIntersections(new Ray(new Point3D(0, 0, 4), new Vector(0, -2, -5)));
-        assertEquals( 3, l.size(),"Ray cut more then 1 shapes  but no all of them");
+        assertEquals( 1, geometries.findIntersections(new Ray(new Point3D(0,5,-1), new Vector(0,0,1))).size(),
+                "just one geometry has intersections point");
+
+        // ============ Equivalence Partitions Tests ==============
+        assertEquals( 2, geometries.findIntersections(new Ray(new Point3D(1,0,-1), new Vector(0,0,1))).size(),
+                "part of the geometries has intersections points");
+
     }
 }

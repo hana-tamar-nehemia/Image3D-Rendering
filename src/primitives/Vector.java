@@ -58,7 +58,10 @@ public class Vector {
      * @param v the second vector
      * @return a new vector the result of the cross Product
      */
-    public Vector crossProduct(Vector v) {// מכפלה וקטורית
+    public Vector crossProduct(Vector v) {
+        if (v.equals(ZERO)) {
+            throw new IllegalArgumentException("Vector head cannot be Point(0,0,0)");
+        }
         double u1 = _head._x._coord;
         double u2 = _head._y._coord;
         double u3 = _head._z._coord;
@@ -70,8 +73,6 @@ public class Vector {
         u2 * v3 - u3 * v2,
         u3 * v1 - u1 * v3,
         u1 * v2 - u2 * v1);
-        if(x.equals(ZERO))
-            throw new IllegalArgumentException("cross product result is zero");
        return new Vector((x));
     }
 
