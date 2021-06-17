@@ -4,13 +4,18 @@ import javax.naming.OperationNotSupportedException;
 import java.util.Objects;
 
 import static primitives.Point3D.ZERO;
-
+/**
+ * Vector class is the basic class representing a vector.
+ *
+ *   @author Tamar & Tehila
+ */
 public class Vector {
+    //vector made by point 3D
     Point3D _head;
 
     /**
-     * v
-     * @param head
+     * constructor that set the head vector with point 3D
+     * @param head point 3D
      */
     public Vector(Point3D head) {
         if (head.equals(ZERO)) {
@@ -18,39 +23,40 @@ public class Vector {
         }
         _head = head;
     }
+
+    /**
+     * constructor- gets 3 numbers and creates a Vector
+     *
+     * @param x the coordinate x
+     * @param y the coordinate y
+     * @param z the coordinate z
+     */
     public Vector(double x, double y, double z) {
         this(new Point3D(x, y, z));
     }
+
+    /**
+     * constructor- gets 3 coordinates and creates a Vector
+     *
+     * @param x the coordinate x
+     * @param y the coordinate y
+     * @param z the coordinate z
+     */
     public Vector(Coordinate x, Coordinate   y, Coordinate z) {
         this(x._coord,y._coord, z._coord);
     }
 
     /**
-     *
-     * @return Point3D
+     * @return the head - Point3D
      */
     public Point3D getHead() {
         return new Point3D(_head._x, _head._y, _head._z);
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Vector vector = (Vector) o;
-        return _head.equals(vector._head);
-    }
-
-    @Override
-    public String toString() {
-        return "{" + _head + '}';
-    }
-
     /**
      * Vector product – Returns a new vector that stands for the two existing vectors
-     * @param v
-     * @return
+     * @param v the second vector
+     * @return a new vector the result of the cross Product
      */
     public Vector crossProduct(Vector v) {// מכפלה וקטורית
         double u1 = _head._x._coord;
@@ -70,11 +76,12 @@ public class Vector {
     }
 
     /**
-     * Sclear product
-     * @param v
-     * @return
+     * dot Product -Vector product
+     * Vector vector multiplier in order
+     * @param v the second vector
+     * @return a new vector the result of the Vector product
      */
-    public double dotProduct(Vector v) {//מכפלה סלקרית
+    public double dotProduct(Vector v) {
         double u1 = _head._x._coord;
         double u2 = _head._y._coord;
         double u3 = _head._z._coord;
@@ -88,16 +95,50 @@ public class Vector {
     }
 
     /**
-     *  Calculation of the length of the vector
-     * @return
+     * Vector plug (returns new vector)
+     * @param v vector we adding to the second
+     * @return vector
      */
-    public double length() {
-        return Math.sqrt(lengthSquared());
+    public Vector add(Vector v) {
+        double x = _head._x._coord + v._head._x._coord;
+        double y = _head._y._coord + v._head._y._coord;
+        double z = _head._z._coord + v._head._z._coord;
+
+        return new Vector(new Point3D(x, y, z));
     }
 
     /**
-     * Calculate the length of the vector squared
-     * @return
+     * Vector subtraction (returns new vector)
+     * @param v vector we subtracting from the second
+     * @return vector
+     */
+    public Vector subtract(Vector v) {
+        double x = _head._x._coord - v._head._x._coord;
+        double y = _head._y._coord - v._head._y._coord;
+        double z = _head._z._coord - v._head._z._coord;
+
+        return new Vector(new Point3D(x, y, z));
+    }
+
+    /**
+     * Vector product in number - Scalar (returns new vector)
+     * @param scalar number to multiplier
+     * @return vector
+     */
+    public Vector scale(double scalar) {
+        if(Double.compare(scalar,0d)== 0){
+            throw new IllegalArgumentException("scaling factor == 0");
+        }
+        return new Vector(
+                new Point3D(
+                        scalar * _head._x._coord,
+                        scalar * _head._y._coord,
+                        scalar * _head._z._coord));
+    }
+
+    /**
+     * Calculate the length squared of the vector
+     * @return double -length squared of the vector
      */
     public double lengthSquared() {
         double u1 = _head._x._coord;
@@ -107,14 +148,21 @@ public class Vector {
         return u1 * u1 + u2 * u2 + u3 * u3;
     }
 
+    /**
+     *  Calculation of the length of the vector
+     *  use by the func that calculate the length squared
+     * @return double -length of the vector
+     */
+    public double length() {
+        return Math.sqrt(lengthSquared());
+    }
+
+
 
     /**
-     * – The act of normalization of the vector that will change the vector itself
-     * (the only action that changes the object on which it was summoned).
-     * The change is made by replacing the head point with a new point with updated coordinates.
-     * The action will also return the vector itself for
-     * the purpose of chaining the actions if necessary
-     * @return
+     * Create a new Vector that normalized to the current Vector
+     *
+     * @return the new Vector
      */
     public Vector normalize() {//נירמול וקטור עצמי
         double len=this.length();
@@ -129,8 +177,9 @@ public class Vector {
     }
 
     /**
-     * Normalization operation that returns a new vector normalized in the same direction as the original vector
-     * @return
+     * Normalized the current Vector
+     *
+     * @return this
      */
     public Vector normalized() {
         Vector v = new Vector(_head);
@@ -138,46 +187,18 @@ public class Vector {
         return v;
     }
 
-    /**
-     * Vector plug (returns new vector)
-     * @param v
-     * @return
-     */
-    public Vector add(Vector v) {
-        double x = _head._x._coord + v._head._x._coord;
-        double y = _head._y._coord + v._head._y._coord;
-        double z = _head._z._coord + v._head._z._coord;
 
-        return new Vector(new Point3D(x, y, z));
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vector vector = (Vector) o;
+        return _head.equals(vector._head);
     }
 
-    /**
-     * Vector subtraction (returns new vector)
-     * @param v
-     * @return
-     */
-    public Vector subtract(Vector v) {
-        double x = _head._x._coord - v._head._x._coord;
-        double y = _head._y._coord - v._head._y._coord;
-        double z = _head._z._coord - v._head._z._coord;
-
-        return new Vector(new Point3D(x, y, z));
-    }
-
-    /**
-     * Vector product in number - Sklar (returns new vector)
-     * @param scalar
-     * @return
-     */
-    public Vector scale(double scalar) {
-        if(Double.compare(scalar,0d)== 0){
-            throw new IllegalArgumentException("scaling factor == 0");
-        }
-        return new Vector(
-                new Point3D(
-                        scalar * _head._x._coord,
-                        scalar * _head._y._coord,
-                        scalar * _head._z._coord));
+    @Override
+    public String toString() {
+        return "{" + _head + '}';
     }
 
 }

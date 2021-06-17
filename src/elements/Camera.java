@@ -11,22 +11,33 @@ import java.util.List;
 import static primitives.Util.isZero;
 import static primitives.Util.random;
 
+/**
+ *Camera class represent the camera of the scene
+ *
+ *  @author Tamar & Tehila
+ */
 public class Camera {
+
     /**
-     * We will define fields: a Point3D location and three vectors of camera direction
+     * We will define fields: a Point3D  and three vectors of camera direction
+     * number of ray we want to send,
+     * the Point3D of the center pixel,
+     *
      */
+
     private Point3D _p0;
     Vector _vTo;
     Vector _vUp;
     Vector _vRight;
     double _width, _height, _distance;
     int _numOfRays=0;
+    Point3D _centerPixel;
 
-    public Camera setNumOfRays(int numOfRays) {
-        _numOfRays = numOfRays;
-        return this;
-    }
 
+
+    /**
+     * Getters of Camera vars
+     */
 
     public Point3D getP0() {
         return _p0;
@@ -39,6 +50,28 @@ public class Camera {
     public Vector getvTo() {
         return _vTo;
     }
+
+    public double getWidth() {
+        return _width;
+    }
+
+    public double getHeight() {
+        return _height;
+    }
+
+    public double getDistance() {
+        return _distance;
+    }
+
+    public Point3D get_centerPixel() { return _centerPixel; }
+
+
+    /**
+     * setters of camera
+     *
+     * Update methods for the camera
+     * which returns the camera object itself
+     */
 
     public void setvTo(Vector vTo) {
         this._vTo = vTo;
@@ -60,25 +93,17 @@ public class Camera {
         this._vRight = vRight;
     }
 
-    public double getWidth() {
-        return _width;
-    }
-
-
-    public double getHeight() {
-        return _height;
-    }
-
-
-    public double getDistance() {
-        return _distance;
-    }
 
     /**
-     * Update method for the View Plane distance from the camera,
-     * which returns the camera object itself
+     * Update method for the amount of rays to create in rendering,
      */
-
+    public Camera setNumOfRays(int numOfRays) {
+        _numOfRays = numOfRays;
+        return this;
+    }
+    /**
+     * Update method for the View Plane distance,
+     */
     public Camera setDistance(double distance) {
         this._distance = distance;
         return this;
@@ -86,13 +111,47 @@ public class Camera {
 
     /**
      * Update method for the View Plane size,
-     * which receives two numbers - width and height and returns the camera object itself
      */
     public Camera setViewPlaneSize(double width, double height) {
         this._height = height;
         this._width = width;
         return this;
     }
+
+    /**
+     *
+     * made point 3D of certain pixel in the view plane
+     *
+     * @param nX the width of the view plane
+     * @param nY the height of the view plane
+     * @param j the column of the pixel we want
+     * @param i the row of the pixel we want
+     * @return point 3D of certain pixel in the view plane
+     */
+
+    public Camera set_centerPixel(int nX, int nY, int j, int i) {
+        Point3D pc = _p0.add(_vTo.scale(_distance));//the point that the vector vTo gets to
+
+        double Rx = _width / nX; //the width of the pixel
+        double Ry = _height / nY;//the height of the pixel
+
+        double yi = -(i - (nY - 1) / 2d) * Ry;//calculate the distance of the pixel from the center of the view plane in the direction of vRight
+        double xj = (j - (nX - 1) / 2d) * Rx;//calculate the distance of the pixel from the center of the view plane in the direction of Up
+
+        Point3D Pij = pc;
+        //if the pixel is not the center of the rows and not the center of the columns
+
+        if (!isZero(xj)) {
+            Pij = Pij.add(_vRight.scale(xj));
+        }
+        //if not:
+        if (!isZero(yi)) {
+            Pij = Pij.add((_vUp.scale(yi)));
+        }
+        _centerPixel= Pij;
+         return this;
+    }
+
 
     /**
      * Constructor with parameters for position values and two vectors of direction -
@@ -122,50 +181,39 @@ public class Camera {
     }
 
     /**
+     * Constructor of ray that pass through the certain pixel in the view plane
+     *
      * @param nX Height -length units pixels
      * @param nY Width length units pixels
      * @param j  Columns
      * @param i  Lines
-     * @return
+     * @return the  ray that pass through the certain pixel in the view plane
      */
     public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
 
-        Point3D Pij =getPij( nX,  nY,  j,  i);
+        this.set_centerPixel(nX,  nY,  j,  i);
+        Point3D Pij =get_centerPixel();
 
         Vector vij = Pij.subtract(_p0);
         return (new Ray(_p0, vij));
     }
 
-    public Point3D getPij(int nX, int nY, int j, int i)
-    {
-        Point3D pc = _p0.add(_vTo.scale(_distance));//the point that the vector vTo gets to
+    /**
+     * Multi Constructor of rays that pass through a one pixel in the view plane
+     *
+     * @param nX the width of the view plane
+     * @param nY the height of the view plane
+     * @param j the column of the pixel we want
+     * @param i the row of the pixel we want
+     * @return the all rays that pass through a one pixel in the view plane
+     */
+    public List<Ray> constructRayThroughPixelSuperSample(int nX, int nY, int j, int i) {
 
-        double Rx = _width / nX; //the width of the pixel
-        double Ry = _height / nY;//the height of the pixel
-
-        double yi = -(i - (nY - 1) / 2d) * Ry;//calculate the distance of the pixel from the center of the view plane in the direction of vRight
-        double xj = (j - (nX - 1) / 2d) * Rx;//calculate the distance of the pixel from the center of the view plane in the direction of Up
-
-        Point3D Pij = pc;
-        //if the pixel is not the center of the rows and not the center of the columns
-
-        if (!isZero(xj)) {
-            Pij = Pij.add(_vRight.scale(xj));
-        }
-        //if not:
-        if (!isZero(yi)) {
-            Pij = Pij.add((_vUp.scale(yi)));
-        }
-        return Pij;
-    }
-
-    public LinkedList<Ray> constructRayThroughPixelSuperSample(int nX, int nY, int j, int i) {
-
-        LinkedList<Ray> rays = new LinkedList<>();
+        List<Ray> rays = new LinkedList<>();
 
         rays.add(constructRayThroughPixel( nX,  nY,  j,  i));//the point that the vector vTo gets to
-
-        Point3D pc = getPij(nX,  nY,  j,  i);
+        this.set_centerPixel(nX,  nY,  j,  i);
+        Point3D pc = get_centerPixel();
 
         //Two random variables from which we get a dot within the pixel range
         double r1,r2;
@@ -183,25 +231,16 @@ public class Camera {
         }
         return rays;
     }
-    /**
-     * Construct a ray to pass through a certain pixel in the view plane
-     *
-     * @param nX amount of columns in the view plane
-     * @param nY amount of rows in the view plane
-     * @param j  the column of the pixel we want
-     * @param i  the row of the pixel we want
-     * @return the constructed ray
-     */
 
         /**
          * Builder Class for Camera
          */
+
         public static class BuilderCamera {
             final private Point3D _p0;
             final private Vector _vTo;
             final private Vector _vUp;
             final private Vector _vRight;
-
             private double _distance = 10;
             private double _width = 1;
             private double _height = 1;

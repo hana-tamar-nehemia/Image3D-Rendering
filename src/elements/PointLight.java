@@ -4,17 +4,25 @@ import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
+/**
+ * light with no direction and the distance affect the intensity
+ *
+ *   *  * @author Tamar & Tehila
+ */
 public class PointLight extends Light implements LightSource {
     private final Point3D _position;
+    /**
+     *discount coefficients
+     */
     private double _Kc = 1.0;
     private double _Kl = 0;
     private double _Kq = 0;
 
     /**
-     * constractor
+     * constructor to set the power of the light and the the place of the light
      *
-     * @param intensity
-     * @param position
+     * @param intensity power of the light
+     * @param position the place of the light
      */
     protected PointLight(Color intensity, Point3D position) {
         super(intensity);
@@ -22,8 +30,10 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * @param p
-     * @return
+     * @param p the light from position to p
+     *  the intensity of the point by calculation by specific formula
+     * 1d / (_Kc + _Kl * d + _Kq * d * d)*intensity
+     * @return the color intensity in point p
      */
     @Override
     public Color getIntensity(Point3D p) {
@@ -36,6 +46,7 @@ public class PointLight extends Light implements LightSource {
      * @param p
      * @return the light from position to p
      */
+
     @Override
     public Vector getL(Point3D p) {
         return p.subtract(_position).normalized();
@@ -46,6 +57,10 @@ public class PointLight extends Light implements LightSource {
         return _position.distance(point);
     }
 
+    /**
+     * seeters of discount coefficients
+     * @return this, point light
+     */
 
     public PointLight setKc(double Kc) {
         this._Kc = Kc;

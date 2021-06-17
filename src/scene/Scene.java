@@ -14,13 +14,15 @@ import java.util.List;
  * Default background color - black
  * Default Environmental Lighting - Lighting itself 0 in black
  * 3D model - by default will be initialized to a blank model
+ *
+ *  @author Tamar & Tehila
  */
 public class Scene {
-    private final String _name;
-    public Color background = Color.BLACK;
-    public AmbientLight ambientlight= new AmbientLight(); ;
-    public Geometries geometries = null;
-    public List<LightSource> _lights= new LinkedList<>();
+    private final String _name;//the name of the scene
+    public Color background = Color.BLACK;//the color background of the scene
+    public AmbientLight ambientlight= new AmbientLight(); ;//the ambient light of the scene
+    public Geometries geometries = null;//the geometries participate in the scene
+    public List<LightSource> _lights= new LinkedList<>();//all the lights participate in the scene
     /**
      * A builder that gets the name of the scene and also builds an empty
      * collection of bodies for model D3.

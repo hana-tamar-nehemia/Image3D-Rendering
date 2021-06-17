@@ -13,40 +13,29 @@ import java.util.MissingResourceException;
 /**
  * The department's role is to create the color matrix of the image from the scene.
  * The class will contain fields of ImageWriter, Scene, Camera and Horn Scanner
+ *
+ *  *   @author Tamar & Tehila
  */
 public class Render {
+
     ImageWriter _imageWriter = null;
     Camera _camera = null;
     RayTracerBase _rayTracerBase = null;
 
     /**
-     * setter method of ImageWriter
-     *
-     * @param imageWriter
-     * @return
+     * setters
      */
+
     public Render setImageWriter(ImageWriter imageWriter) {
         _imageWriter = imageWriter;
         return this;
     }
 
-    /**
-     * setter method of camera
-     *
-     * @param camera
-     * @return
-     */
     public Render setCamera(Camera camera) {
         _camera = camera;
         return this;
     }
 
-    /**
-     * setter method of rayTracerBase
-     *
-     * @param rayTracer
-     * @return
-     */
     public Render setRayTracer(RayTracerBase rayTracer) {
         _rayTracerBase = rayTracer;
         return this;
@@ -86,28 +75,36 @@ public class Render {
         }
     }
 
+    /**
+     * A method that will first check that a blank value was entered
+     * in all the fields and in case of lack throws a suitable deviation
+     * for each pixel a beam will be built and for each beam we
+     * will get a color from average of all the color from the rays list
+     * The women color in the appropriate pixel of the image manufacturer
+     *
+     *  *   @author Tamar & Tehila
+     */
+                public void renderImageForSuperSampling() {
+                    try {
+                        if (_imageWriter == null) {
+                            throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
+                        }
+                        if (_camera == null) {
+                            throw new MissingResourceException("missing resource", Camera.class.getName(), "");
+                        }
+                        if (_rayTracerBase == null) {
+                            throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");
+                        }
 
-    public void renderImageForSuperSampling() {
-        try {
-            if (_imageWriter == null) {
-                throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
-            }
-            if (_camera == null) {
-                throw new MissingResourceException("missing resource", Camera.class.getName(), "");
-            }
-            if (_rayTracerBase == null) {
-                throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");
-            }
-
-            //rendering the image
-            int nX = _imageWriter.getNx();
-            int nY = _imageWriter.getNy();
-            for (int i = 0; i < nY; i++) {
-                for (int j = 0; j < nX; j++) {
-                    //get list of rays from the same one pixsel
-                    LinkedList<Ray> rays = _camera.constructRayThroughPixelSuperSample(nX, nY, j, i);
+                        //rendering the image
+                        int nX = _imageWriter.getNx();
+                        int nY = _imageWriter.getNy();
+                        for (int i = 0; i < nY; i++) {
+                            for (int j = 0; j < nX; j++) {
+                    //get list of rays from the same one pixel
+                    List<Ray> rays = _camera.constructRayThroughPixelSuperSample(nX, nY, j, i);
                     //sending the rays to function that calculate the average of all the color of the rays
-                    Color k = pixelColorAverage(rays);
+                    Color k = _rayTracerBase.pixelColorAverage(rays);
                     _imageWriter.writePixel(j, i, k);
                 }
             }
@@ -116,21 +113,14 @@ public class Render {
         }
     }
 
-    private Color pixelColorAverage(LinkedList<Ray> rays) {
-        Color color = Color.BLACK;
-        for (Ray n : rays){
-            color = color.add(_rayTracerBase.traceRay(n));
-        }
-        return color.scale(1.d/rays.size());
-    }
 
     /**
      * A method that will create a grid of lines.
      * Of course first the method will check that in the field of the image manufacturer
      * a non-empty value was entered and in case of lack of throwing an exception
      *
-     * @param interval
-     * @param color
+     * @param interval the intervals between the squares
+     * @param color the color of the pixel
      */
     public void printGrid(int interval, Color color) {
         int nX = _imageWriter.getNx();

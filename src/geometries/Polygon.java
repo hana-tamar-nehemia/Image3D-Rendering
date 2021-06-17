@@ -21,10 +21,19 @@ public class Polygon extends Geometry {
      */
     final Plane _plane;
 
+    /**
+     * constructor that set the list of points 3D and the plane of the polygon
+     * @param vertices  List of polygon's vertices
+     * @param plane Associated plane in which the polygon lays
+     */
     public Polygon(List<Point3D> vertices, Plane plane) {
         this._vertices = vertices;
         _plane = plane;
     }
+
+    /**
+     * getters
+     */
 
     public List<Point3D> getVertices() {
         return _vertices;
@@ -33,6 +42,7 @@ public class Polygon extends Geometry {
     public Plane getPlane() {
         return _plane;
     }
+
 
     @Override
     public String toString() {
@@ -108,8 +118,10 @@ public class Polygon extends Geometry {
     }
 
     /**
-     Receives a ray and returns a list of the
-     points that cut with the ray and also returns the name of the shape, polygon
+     * find the intersections points with the ray and the polygon in a certain distance
+     * @param ray check the intersections between it and the Geometry shape
+     * @param maxDistance the maximum distance between the light source and the polygon
+     * @return a list with geoPoints- the intersections points and the object (polygon)
      */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
@@ -144,46 +156,6 @@ public class Polygon extends Geometry {
         }
         return null;
     }
-//        List<Point3D> result = _plane.findIntersections(ray);
-//
-//        if (result == null) {
-//            return List.of(new GeoPoint(this, result.get(0)));
-//        }
-//
-//        Point3D P0 = ray.getP0();
-//        Vector v = ray.getDir();
-//
-//        Point3D P1 = _vertices.get(1);
-//        Point3D P2 = _vertices.get(0);
-//
-//        Vector v1 = P1.subtract(P0);
-//        Vector v2 = P2.subtract(P0);
-//
-//        double sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
-//
-//        if (isZero(sign)) {
-//            return null;
-//        }
-//
-//        boolean positive = sign > 0;
-//
-//        //iterate through all vertices of the polygon
-//        for (int i = _vertices.size() - 1; i > 0; --i) {
-//            v1 = v2;
-//            v2 = _vertices.get(i).subtract(P0);
-//
-//            sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
-//            if (isZero(sign)) {
-//                return null;
-//            }
-//
-//            if (positive != (sign > 0)) {
-//                return null;
-//            }
-//        }
-//
-//        return List.of(new GeoPoint(this, result.get(0)));
-//    }
 }
 
 

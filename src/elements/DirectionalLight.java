@@ -4,13 +4,20 @@ import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
+/**
+ * a class of light with direction its light like a sun
+ *
+ *  * @author Tamar & Tehila
+ */
 public class DirectionalLight extends Light implements LightSource{
+
    private final Vector _direction;
+
     /**
-     * constractor
+     * constructor
      *
-     * @param intensity
-     * @param direction
+     * @param intensity the intensity of the light
+     * @param direction a vector direction of the light
      */
     public DirectionalLight(Color intensity, Vector direction) {
         super(intensity);
@@ -22,6 +29,11 @@ public class DirectionalLight extends Light implements LightSource{
         return _intensity;
     }
 
+    /**
+     *
+     * @param p
+     * @return the normalized vector of direction
+     */
     @Override
     public Vector getL(Point3D p) {
         return _direction.normalize();

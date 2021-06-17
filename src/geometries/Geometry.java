@@ -8,6 +8,8 @@ import primitives.Vector;
 /**
  * An interface called geometry for any geometric body
  * and then we will set up classes for the various bodies.
+ *
+ * @author Tamar & Tehila
  */
 public abstract class Geometry implements Intersectable {
     /**

@@ -63,7 +63,7 @@ public class ShadowTests {
                         .setKl(4E-4).setKq(2E-5));
 
         Render render = new Render() //
-                .setImageWriter(new ImageWriter("shadowTrianglesSphere", 600, 600)) //
+                .setImageWriter(new ImageWriter("shadow Triangles Sphere", 600, 600)) //
                 .setCamera(camera) //
                 .setRayTracer(new BasicRayTracer(scene));
         render.renderImage();
@@ -85,7 +85,7 @@ public class ShadowTests {
                         .setKl(1E-5).setKq(1.5E-7));
 
         Render render = new Render(). //
-                setImageWriter(new ImageWriter("shadowSphereTriangleInitial1", 400, 400)) //
+                setImageWriter(new ImageWriter("shadow Sphere Triangle Initial1", 400, 400)) //
                 .setCamera(camera) //
                 .setRayTracer(new BasicRayTracer(scene));
         render.renderImage();
@@ -110,7 +110,7 @@ public class ShadowTests {
                         .setKl(1E-5).setKq(1.5E-7));
 
         Render render = new Render(). //
-                setImageWriter(new ImageWriter("shadowSphereTriangleInitial2", 400, 400)) //
+                setImageWriter(new ImageWriter("shadow Sphere Triangle Initial2", 400, 400)) //
                 .setCamera(camera) //
                 .setRayTracer(new BasicRayTracer(scene));
         render.renderImage();
@@ -132,7 +132,7 @@ public class ShadowTests {
                         .setKl(1E-5).setKq(1.5E-7));
 
         Render render = new Render(). //
-                setImageWriter(new ImageWriter("shadowSphereTriangleInitial3", 400, 400)) //
+                setImageWriter(new ImageWriter("shadow Sphere Triangle Initial3", 400, 400)) //
                 .setCamera(camera) //
                 .setRayTracer(new BasicRayTracer(scene));
         render.renderImage();
@@ -154,7 +154,7 @@ public class ShadowTests {
                         .setKl(1E-5).setKq(1.5E-7));
 
         Render render = new Render(). //
-                setImageWriter(new ImageWriter("shadowSphereTriangleInitial4", 400, 400)) //
+                setImageWriter(new ImageWriter("shadow Sphere Triangle Initial4", 400, 400)) //
                 .setCamera(camera) //
                 .setRayTracer(new BasicRayTracer(scene));
         render.renderImage();
@@ -187,7 +187,7 @@ public class ShadowTests {
 
 
         Render render = new Render() //
-                .setImageWriter(new ImageWriter("try", 600, 600)) //
+                .setImageWriter(new ImageWriter("Several Different Shapes", 600, 600)) //
                 .setCamera(camera) //
                 .setRayTracer(new BasicRayTracer(scene));
         render.renderImage();

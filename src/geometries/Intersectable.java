@@ -9,18 +9,34 @@ import java.util.stream.Collectors;
 /**
  * An interface known as geometry which for each geometric body
  *    Consider his intersection points with the ray
+ *
+ *   @author Tamar & Tehila
  */
 public interface Intersectable {
 
+    /**
+     * GeoPoint class represent the intersection point with an object
+     */
     public static class GeoPoint {
         public Geometry geometry;
         public Point3D point;
+
+        /**
+         * basic constructor of GeoPoint
+         * @param geometry the geometry shape
+         * @param point
+         */
 
         public GeoPoint(Geometry geometry, Point3D point) {
             this.geometry = geometry;
             this.point = point;
         }
 
+        /**
+         * check if 2 geoPoints are equal
+         * @param o the other geoPoint to check
+         * @return true if equal, false if not.
+         */
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -31,22 +47,9 @@ public interface Intersectable {
     }
 
     /**
-     * Gets a beam and returns a list of the intersection points
-     * of the shape with the ray and also returns the shape name
-     *
-     * @return
-     */
-
-    default List<GeoPoint> findGeoIntersections(Ray ray)
-    {
-    return  findGeoIntersections(ray,Double.POSITIVE_INFINITY);
-    }
-
-    List<GeoPoint> findGeoIntersections(Ray ray,double maxDistance);
-
-    /**
-     * If there is no shape cut with the ray will return null
-     * else return a with list all the cutting points that each shape has with the ray
+     * calculates all the intersections points of the ray given with the object
+     * @param ray- check the intersections between it and the Geometry shape.
+     * @return a list of all the intersections points.
      */
     default List<Point3D> findIntersections(Ray ray) {
         var geoList = findGeoIntersections(ray);
@@ -56,5 +59,24 @@ public interface Intersectable {
                 .map(gp -> gp.point)
                 .collect(Collectors.toList());
     }
+
+    /**
+     * default function- if get only a ray and no max distance, put in the distance the infinity value
+     * @param ray the ray that intersect the object
+     * @return a list of the intersections geoPoints
+     */
+    default List<GeoPoint> findGeoIntersections(Ray ray)
+    {
+    return  findGeoIntersections(ray,Double.POSITIVE_INFINITY);
+    }
+
+
+    /**
+     * find intersection geoPoints with a ray and objects, only in the distance between the light source and the objects
+     * @param ray the ray that intersect the object
+     * @param maxDistance the maximum distance to find intersection points
+     * @return a list of the intersections geoPoints
+     */
+    List<GeoPoint> findGeoIntersections(Ray ray,double maxDistance);
 
 }

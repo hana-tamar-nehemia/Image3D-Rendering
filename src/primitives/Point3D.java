@@ -1,6 +1,11 @@
 package primitives;
 import java.util.Objects;
 
+/**
+ * Point3d class is the basic class representing a 3D point. Based on the Coordinate class.
+ *
+ * @author Tamar & Tehila
+ */
 public class Point3D {
     public final static Point3D ZERO = new Point3D(0d, 0d, 0d);
     final Coordinate _x;
@@ -8,7 +13,7 @@ public class Point3D {
     final Coordinate _z;
 
     /**
-     * constractor who get 3 Coordinates to put in the point 3D
+     * constructor who get 3 Coordinates to put in the point 3D
      * @param x
      * @param y
      * @param z
@@ -19,7 +24,7 @@ public class Point3D {
         _z = z;
     }
     /**
-     * constractor who get 3 numbers to put in the point 3D
+     * constructor who get 3 double numbers to put in the point 3D
      * @param x
      * @param y
      * @param z
@@ -30,7 +35,9 @@ public class Point3D {
         _z = new Coordinate(z);
     }
 
-    //getters
+    /**
+     * getters
+     */
     public double getX() {
         return _x._coord;
     }
@@ -41,23 +48,10 @@ public class Point3D {
         return _z._coord;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Point3D point3D = (Point3D) o;
-        return _x.equals(point3D._x) && _y.equals(point3D._y) && _z.equals(point3D._z);
-    }
-
-    @Override
-    public String toString() {
-        return "(" + _x + "," + _y + "," + _z + ")";
-    }
-
     /**
-     * Distance between two squared points
-     * @param other
-     * @return
+     * Distance Squared between the point "other" to the point 3D of the class
+     * @param other point 3D
+     * @return double  number of the distant Squared
      */
     public double distanceSquared(Point3D other) {
         final double x1 = _x._coord;
@@ -72,8 +66,9 @@ public class Point3D {
 
     /**
      * Distance between 2 points
-     * @param point3D
-     * @return
+     * this func use the func that calculate the Distance Squared
+     * @param point3D point 3D
+     * @return  double  number of the distant
      */
     public double distance(Point3D point3D){
         return (Math.sqrt( distanceSquared( point3D))) ;
@@ -83,8 +78,8 @@ public class Point3D {
      * Vector subtraction – Receives a second point in the parameter,
      * returns a vector from the second point to the point on which the
      * action is performed
-     * @param p
-     * @return
+     * @param p point 3D
+     * @return new Vector subtraction
      */
     public Vector subtract(Point3D p) {//חיסור וקטורים
         if (p.equals(this)) {
@@ -98,15 +93,28 @@ public class Point3D {
     }
 
     /**
-     * Add a vector to a point — returns a new point
-     * @param v
-     * @return
+     * Add a vector to a vector
+     * @param v vector to add to the point 3D of the class
+     * @return a new point 3D
      */
-    public Point3D add(Vector v){//חיבור וקטורים
+    public Point3D add(Vector v){
         return (new Point3D(
                 v._head._x._coord+ this._x._coord,
                 v._head._y._coord+ this._y._coord,
                 v._head._z._coord+ this._z._coord));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Point3D point3D = (Point3D) o;
+        return _x.equals(point3D._x) && _y.equals(point3D._y) && _z.equals(point3D._z);
+    }
+
+    @Override
+    public String toString() {
+        return "(" + _x + "," + _y + "," + _z + ")";
     }
 
 }

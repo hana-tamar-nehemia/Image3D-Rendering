@@ -6,15 +6,19 @@ import primitives.Vector;
 
 import java.util.List;
 
+/**
+ *
+ * @author Tamar & Tehila
+ */
 public class Tube extends Geometry {
     final Ray _axisRay;
     final double _radius;
 
     /**
-     * constractor who get Ray and number of radius
+     * constructor who get Ray and number of radius
      *
-     * @param axisRay
-     * @param radius
+     * @param axisRay the ray
+     * @param radius of tube
      */
     public Tube(Ray axisRay, double radius) {
         _axisRay = axisRay;
@@ -38,12 +42,11 @@ public class Tube extends Geometry {
     }
 
     /**
-     * Receives one point parameter [across the geometric body] and
-     * *returns the normalized vector (vertical) to the body at that point.
-     * *
+     * Receives one point parameter [across the geometric body]
      *
-     * @param point
-     * @return
+     * @param point specific point on the tube
+     *
+     * @return the normalized vector (vertical) to the body at that point
      */
     @Override
     public Vector getNormal(Point3D point) {
@@ -57,6 +60,7 @@ public class Tube extends Geometry {
         return N;
     }
 
+    //bonus
     public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
         return null;
     }

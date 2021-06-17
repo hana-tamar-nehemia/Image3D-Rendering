@@ -10,15 +10,20 @@ import java.util.List;
 
 import static primitives.Util.isZero;
 
+/**
+ * Ray class is the basic class representing a Ray. Based on a point and a vector.
+ *
+ *   @author Tamar & Tehila
+ */
 public class Ray {
    private final Point3D _p0;
    private final  Vector _dir;
     private static final double DELTA = 0.1;
 
     /**
-     * constractor who get point 3D and diraction vector
-     * @param p0
-     * @param dir
+     * constructor who get point 3D and direction vector
+     * @param p0 the point the ray comes out
+     * @param dir direction vector of the ray
      */
     public Ray(Point3D p0, Vector dir) {
         _p0 = p0;
@@ -32,6 +37,9 @@ public Ray(Point3D point, Vector lightDirection, Vector n) {
     _dir = lightDirection;
 }
 
+    /**
+     * getters
+     */
     public Point3D getP0() {
         return _p0;
     }
@@ -40,7 +48,13 @@ public Ray(Point3D point, Vector lightDirection, Vector n) {
         return _dir;
     }
 
-    public Point3D getPoint(double x ){//מחזירה את הנקודה של סוף הוקטור לפי וקטור כוון נקודת התחלה ואורך
+    /**
+     * func that calculate the end point of the ray according to
+     * the length and the begin point and the direction
+     * @param x the length of the ray
+     * @return the end point of the ray
+     */
+    public Point3D getPoint(double x ){
         if (isZero(x)){
             return _p0;
         }
@@ -48,7 +62,8 @@ public Ray(Point3D point, Vector lightDirection, Vector n) {
     }
 
     /**
-     The receiver collects points and returns the point closest to the beginning of the fund.
+     The receiver collects points and returns
+     the point closest to the beginning of the fund.
      */
     public Point3D findClosestPoint(List<Point3D> pointsList){
         Point3D result =null;
@@ -57,7 +72,6 @@ public Ray(Point3D point, Vector lightDirection, Vector n) {
         if(pointsList== null){
             return null;
         }
-
 
         for (Point3D p: pointsList) {
             double temp = p.distance(_p0);
