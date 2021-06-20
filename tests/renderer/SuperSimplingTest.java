@@ -126,7 +126,8 @@ public class SuperSimplingTest
 
 
     private Camera camera2 = new Camera(new Point3D(0,300,0), new Vector(0,-1,0), new Vector(0,0,1)) //
-            .setViewPlaneSize(200, 200).setDistance(1000);
+            .setViewPlaneSize(200, 200).setDistance(1000).setNumOfRays(81);
+    ;
 
     @Test
     public void level2() {
