@@ -17,3 +17,7 @@
  
  The image can appear as if it is made of several different objectsthat are made of different materials, 
  for example glossy or matte
+ 
+ The project build with Work in OOP-Encapsulation, abstraction, inheritance and polymorphism, 
+ also with TDD methodologies.
+ 
