@@ -21,3 +21,6 @@
  The project build with Work in OOP-Encapsulation, abstraction, inheritance and polymorphism, 
  also with TDD methodologies.
  
+ <img width="272" alt="image" src="https://github.com/hana-tamar-nehemia/Image3D-Rendering-/assets/73160604/51bb2321-ccda-4de0-a5d7-16d4b2c95a00">
+
+ 
